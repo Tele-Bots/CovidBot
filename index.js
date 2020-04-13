@@ -47,30 +47,52 @@ bot.on('message', (msg) => {
 
             // For first time messages
             if (msg.text == "/start") {
-                bot.sendMessage(chatId, 'Welcome to Covid19 Bot.\nSend me your state ' +
+                return bot.sendMessage(chatId, 'Welcome to Covid19 Bot. Send me your state ' +
                     'code or state name and I will provide you with updated Corona stats.' +
-                    '\nFor example: \npb for Punjab\njk for Jammu and Kashmir etc')
-                return
+                    '\nFor example: \n<i>pb</i> for Punjab\n<i>jk</i> for Jammu and Kashmir etc', {
+                    parse_mode: 'HTML'
+                })
             }
             if (stateindex == undefined) {
-                bot.sendMessage(chatId,
-                    'Sorry ! I am not able to understand.\nSend me your state code or state ' +
-                    'name and I will provide you with updated Corona stats.\nFor example: \npb ' +
-                    'for Punjab\njk for Jammu and Kashmir etc')
-                return
+                return bot.sendMessage(chatId,
+                    'Sorry ! I am not able to understand. Send me your state code or state ' +
+                    'name and I will provide you with updated Corona stats.\nFor example: \n<i>pb</i> ' +
+                    'for Punjab\n<i>jk</i> for Jammu and Kashmir etc', {
+                    parse_mode: 'HTML'
+                })
             }
             let statedata = statewise[stateindex]
             let data = '<b>' + statedata['state'] + '</b>'
             data += "\nConfirmed Cases: " + statedata['confirmed']
+            if (parseInt(statedata['deltaconfirmed']) > 0) {
+                if (parseInt(statedata['deltaconfirmed']) > 1) {
+                    data += '<i> (' + statedata['deltaconfirmed'] + ' new cases)</i>'
+                } else {
+                    data += '<i> (' + statedata['deltaconfirmed'] + ' new case)</i>'
+                }
+            }
             data += "\nActive Cases: " + statedata['active']
             data += "\nRecovered: " + statedata['recovered']
+            if (parseInt(statedata['deltarecovered']) > 0) {
+                if (parseInt(statedata['deltarecovered']) > 1) {
+                    data += '<i> (' + statedata['deltarecovered'] + ' new recoveries)</i>'
+                } else {
+                    data += '<i> (' + statedata['deltaconfirmed'] + ' new recovery)</i>'
+                }
+            }
             data += "\nDeaths: " + statedata['deaths']
+            if (parseInt(statedata['deltadeaths']) > 0) {
+                if (parseInt(statedata['deltadeaths']) > 1) {
+                    data += '<i> (' + statedata['deltadeaths'] + ' new deaths)</i>'
+                } else {
+                    data += '<i> (' + statedata['deltadeaths'] + ' new death)</i>'
+                }
+            }
 
             // send a message to the chat
-            bot.sendMessage(chatId, data, {
+            return bot.sendMessage(chatId, data, {
                 parse_mode: 'HTML'
             })
-            return
         }
     })
 })
