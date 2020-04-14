@@ -13,5 +13,5 @@
 | ------------- |:---------------------------------------:|:------------------:|  -------------:|
 | StateName     | Gives stats of state data               | :heavy_check_mark: | `Punjab`       |
 | StateCode     | Gives stats of state data               | :heavy_check_mark: | `PB`           |
-| all           | Gives all india stats                   | :heavy_check_mark: | `Coming Soon`  |
+| all           | Gives all india stats                   | :heavy_check_mark: | `all`  |
 | all statename | Gives district wise stats of state data | :wrench:           | `Coming Soon`  |
