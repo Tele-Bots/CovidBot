@@ -77,7 +77,7 @@ bot.on('message', (msg) => {
                 if (parseInt(statedata['deltarecovered']) > 1) {
                     data += '<i> (' + statedata['deltarecovered'] + ' new recoveries)</i>'
                 } else {
-                    data += '<i> (' + statedata['deltaconfirmed'] + ' new recovery)</i>'
+                    data += '<i> (' + statedata['deltarecovered'] + ' new recovery)</i>'
                 }
             }
             data += "\nDeaths: " + statedata['deaths']
