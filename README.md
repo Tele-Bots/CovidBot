@@ -8,11 +8,10 @@
 - [x] Case insensitive. `Pb`, `pb`, `pB`, `PuNJAb` all means Punjab.
 - [x] Indicates new cases. Indicase in brackets how many cases are new.
 - [x] Supports State Codes. Send `JK` instead of Jammu and Kashmir.
-
+  
 | Command       | Description                             | Status             | Example        |
 | ------------- |:---------------------------------------:|:------------------:|  -------------:|
 | StateName     | Gives stats of state data               | :heavy_check_mark: | `Punjab`       |
 | StateCode     | Gives stats of state data               | :heavy_check_mark: | `PB`           |
-| all           | Gives all india stats                   | :wrench:           | Coming Soon    |
-| all statename | Gives district wise stats of state data | :wrench:           | Coming Soon    |
-
+| all           | Gives all india stats                   | :wrench:           | `Coming Soon`  |
+| all statename | Gives district wise stats of state data | :wrench:           | `Coming Soon`  |
