@@ -5,6 +5,8 @@
 <p align="center"><img src="https://user-images.githubusercontent.com/30543444/79143317-ac94d900-7dda-11ea-9629-ae4be595328b.png" align="center" width="400"></p>
 
 ### Features:
+- [x] No hectic menus. Just send the command and get the stats instantly.
+- [x] Command menu to choose handy commands with no boring sub-command loops, as quick as unicorn.
 - [x] Case insensitive. `Pb`, `pb`, `pB`, `PuNJAb` all means Punjab.
 - [x] Indicates new cases. Indicase in brackets how many cases are new.
 - [x] Supports State Codes. Send `JK` instead of Jammu and Kashmir.
