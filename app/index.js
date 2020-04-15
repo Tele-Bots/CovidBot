@@ -1,52 +1,20 @@
 const TelegramBot = require('node-telegram-bot-api')
 const request = require('request')
+const { start } = require('./commands/start')
+const { all } = require('./commands/all')
+const { stateName } = require('./commands/stateName')
+
 require('dotenv').config()
+
 let options = { json: true }
-
 const url = 'https://api.covid19india.org/data.json'
-
-// replace the value below with the Telegram token
-const token = process.env.TELEGRAM_BOT_TOKEN
-
-// Create a bot that uses 'polling' to fetch new updates
-const bot = new TelegramBot(token, { polling: true })
-
-function prepareAnswer(body, index, nameState) {
-    let statewise = body['statewise']
-    let statedata = statewise[index]
-    let data = '<b>' + nameState + '</b>'
-    data += "\nConfirmed: " + statedata['confirmed']
-    if (parseInt(statedata['deltaconfirmed']) > 0) {
-        if (parseInt(statedata['deltaconfirmed']) > 1) {
-            data += '<i> (' + statedata['deltaconfirmed'] + ' new cases)</i>'
-        } else {
-            data += '<i> (' + statedata['deltaconfirmed'] + ' new case)</i>'
-        }
-    }
-    data += "\nActive: " + statedata['active']
-    data += "\nRecovered: " + statedata['recovered']
-    if (parseInt(statedata['deltarecovered']) > 0) {
-        if (parseInt(statedata['deltarecovered']) > 1) {
-            data += '<i> (' + statedata['deltarecovered'] + ' new recoveries)</i>'
-        } else {
-            data += '<i> (' + statedata['deltarecovered'] + ' new recovery)</i>'
-        }
-    }
-    data += "\nDeaths: " + statedata['deaths']
-    if (parseInt(statedata['deltadeaths']) > 0) {
-        if (parseInt(statedata['deltadeaths']) > 1) {
-            data += '<i> (' + statedata['deltadeaths'] + ' new deaths)</i>'
-        } else {
-            data += '<i> (' + statedata['deltadeaths'] + ' new death)</i>'
-        }
-    }
-    return data
-}
+const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN, {
+    polling: true
+})
 
 // Listen for any kind of message and reply with the data
 bot.on('message', (msg) => {
     const chatId = msg.chat.id
-
 
     request(url, options, (error, res, body) => {
         if (error) {
@@ -54,53 +22,22 @@ bot.on('message', (msg) => {
         }
 
         if (!error && res.statusCode == 200) {
+            let userMessage = msg.text.toLowerCase().replace(/[^a-zA-Z ]/g, "")
 
-            // For first time messages
-            if (msg.text == "/start") {
-                return bot.sendMessage(chatId, 'Welcome to Covid19 Bot. Send me your state ' +
-                    'code or state name and I will provide you with updated Corona stats.' +
-                    '\nFor example: \n<i>pb</i> for Punjab\n<i>jk</i> for Jammu and Kashmir etc', {
-                    parse_mode: 'HTML'
-                })
-            }
+            // `/start` command
+            // Returns: Welcome message
+            if (userMessage == "start")
+                return start(bot, chatId);
 
-            // In case user wants all India stats
-            if (msg.text.toLowerCase().replace(/[^a-zA-Z ]/g, "") == 'all') {
-                let data = prepareAnswer(body, 0, 'Total Cases in India')
-                // send a message to the chat
-                return bot.sendMessage(chatId, data, {
-                    parse_mode: 'HTML'
-                })
-            }
 
-            // For full state full name and state code, convert the user input into lower case
-            let user_msg_state = msg.text.toLowerCase().replace(/[^a-zA-Z ]/g, "")
+            // `all` command
+            // Returns: All india stats
+            if (userMessage == 'all')
+                return all(body, bot, chatId)
 
-            let statewise = body['statewise']
-            let stateindex
-            for (let index = 0; index < statewise.length; index++) {
-                let currentdata = statewise[index]
-                if (currentdata['state'].toLowerCase() == user_msg_state || currentdata['statecode'].toLowerCase() == user_msg_state) {
-                    stateindex = index
-                    break
-                }
-            }
-
-            if (stateindex == undefined) {
-                return bot.sendMessage(chatId,
-                    'Sorry ! I am not able to understand. Send me your state code or state ' +
-                    'name and I will provide you with updated Corona stats.\nFor example: \n<i>pb</i> ' +
-                    'for Punjab\n<i>jk</i> for Jammu and Kashmir etc', {
-                    parse_mode: 'HTML'
-                })
-            }
-            let statedata = statewise[stateindex]
-            let data = prepareAnswer(body, stateindex, statedata['state'])
-
-            // send a message to the chat
-            return bot.sendMessage(chatId, data, {
-                parse_mode: 'HTML'
-            })
+            // `{statename} or {stateCode} command
+            // Returns: State wise stats
+            return stateName(body, userMessage, bot, chatId)
         }
     })
 })
