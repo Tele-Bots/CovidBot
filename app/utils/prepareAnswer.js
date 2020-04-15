@@ -32,7 +32,7 @@ function prepareStatsCompactAnswer(body, index, nameState) {
 
 function prepareStatsStateAnswer(body) {
     let statewise = body['statewise']
-    let data = '\n\n\u{1F4C8} Top 15 states with most cases';
+    let data = '\n\n\u{1F4C8} Top 15 states with most cases'
     statewise.forEach((object, index) => {
         if (index == 0 || index > 15)
             return
@@ -44,7 +44,25 @@ function prepareStatsStateAnswer(body) {
     return data
 }
 
+function prepareStatsDistrictAnswer(body, stateName) {
+    let districtwise = body[stateName]
+    let districtData = districtwise['districtData']
+
+    let data = '\n\n\u{1F4C8} District-wise analysis'
+
+    for (district in districtData) {
+        let eachDistrictData = districtData[district]
+        data += '\n<b>' + district + '</b>: ' + eachDistrictData['confirmed']
+        let deltaData = eachDistrictData['delta']
+        if (parseInt(deltaData['confirmed']) > 0) {
+            data += '<i> (+' + deltaData['confirmed'] + ') </i>'
+        }
+    }
+    return data
+}
+
 module.exports = {
     prepareStatsCompactAnswer,
-    prepareStatsStateAnswer
+    prepareStatsStateAnswer,
+    prepareStatsDistrictAnswer
 }

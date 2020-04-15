@@ -8,6 +8,7 @@ require('dotenv').config()
 
 let options = { json: true }
 const url = 'https://api.covid19india.org/data.json'
+
 const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN, {
     polling: true
 })
