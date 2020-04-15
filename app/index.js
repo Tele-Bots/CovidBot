@@ -55,8 +55,17 @@ bot.on('message', (msg) => {
 
         if (!error && res.statusCode == 200) {
 
+            // For first time messages
+            if (msg.text == "/start") {
+                return bot.sendMessage(chatId, 'Welcome to Covid19 Bot. Send me your state ' +
+                    'code or state name and I will provide you with updated Corona stats.' +
+                    '\nFor example: \n<i>pb</i> for Punjab\n<i>jk</i> for Jammu and Kashmir etc', {
+                    parse_mode: 'HTML'
+                })
+            }
+
             // In case user wants all India stats
-            if (msg.text.toLowerCase() == 'all') {
+            if (msg.text.toLowerCase().replace(/[^a-zA-Z ]/g, "") == 'all') {
                 let data = prepareAnswer(body, 0, 'Total Cases in India')
                 // send a message to the chat
                 return bot.sendMessage(chatId, data, {
@@ -65,7 +74,7 @@ bot.on('message', (msg) => {
             }
 
             // For full state full name and state code, convert the user input into lower case
-            let user_msg_state = msg.text.toLowerCase()
+            let user_msg_state = msg.text.toLowerCase().replace(/[^a-zA-Z ]/g, "")
 
             let statewise = body['statewise']
             let stateindex
@@ -77,14 +86,6 @@ bot.on('message', (msg) => {
                 }
             }
 
-            // For first time messages
-            if (msg.text == "/start") {
-                return bot.sendMessage(chatId, 'Welcome to Covid19 Bot. Send me your state ' +
-                    'code or state name and I will provide you with updated Corona stats.' +
-                    '\nFor example: \n<i>pb</i> for Punjab\n<i>jk</i> for Jammu and Kashmir etc', {
-                    parse_mode: 'HTML'
-                })
-            }
             if (stateindex == undefined) {
                 return bot.sendMessage(chatId,
                     'Sorry ! I am not able to understand. Send me your state code or state ' +
