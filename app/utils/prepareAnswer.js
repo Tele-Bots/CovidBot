@@ -30,6 +30,21 @@ function prepareStatsCompactAnswer(body, index, nameState) {
     return data
 }
 
+function prepareStatsStateAnswer(body) {
+    let statewise = body['statewise']
+    let data = '\n\n\u{1F4C8} Top 15 states with most cases';
+    statewise.forEach((object, index) => {
+        if (index == 0 || index > 15)
+            return
+        data += '\n<b>' + object['state'] + '</b>: ' + object['confirmed']
+        if (parseInt(object['deltaconfirmed']) > 0) {
+            data += '<i> (+' + object['deltaconfirmed'] + ') </i>'
+        }
+    });
+    return data
+}
+
 module.exports = {
-    prepareStatsCompactAnswer
+    prepareStatsCompactAnswer,
+    prepareStatsStateAnswer
 }

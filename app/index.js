@@ -29,7 +29,6 @@ bot.on('message', (msg) => {
             if (userMessage == "start")
                 return start(bot, chatId);
 
-
             // `all` command
             // Returns: All india stats
             if (userMessage == 'all')
