@@ -2,7 +2,7 @@
 <h1 align="center">Covid19Bot</h1>
 <h5 align="center">Get LIVE Corona stats from your state.</h5>
 
-<p align="center"><img src="https://user-images.githubusercontent.com/30543444/79143317-ac94d900-7dda-11ea-9629-ae4be595328b.png" align="center" width="400"></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/30543444/79410845-1241ba80-7fbf-11ea-86ae-0be146a18db1.png" align="center" width="400"></p>
 
 ### Features:
 - [x] No hectic menus. Just send the command and get the stats instantly.
@@ -12,9 +12,7 @@
 - [x] Indicates new cases. Indicate in brackets how many cases are new.
 - [x] Supports State Codes. Send `JK` instead of Jammu and Kashmir.
   
-| Command       | Description                                                 | Status             | Example        |
-| ------------- |:-----------------------------------------------------------:|:------------------:|  -------------:|
-| StateName     | Gives stats of state data                                   | :heavy_check_mark: | `Punjab`       |
-| StateCode     | Gives stats of state data                                   | :heavy_check_mark: | `PB`           |
-| all           | Gives all india stats/Top 15 states with most cases         | :heavy_check_mark: | `all`          |
-| all statename | Gives district wise stats of state data                     | :wrench:           | `Coming Soon`  |
+| Command                 | Description                                                 | Status             | Example        |
+| ----------------------- |:-----------------------------------------------------------:|:------------------:|  -------------:|
+| StateName/StateCode     | Gives stats of state data/ District-wise analysis           | :heavy_check_mark: | `Punjab`,`pb`  |
+| all                     | Gives all india stats/Top 15 states with most cases         | :heavy_check_mark: | `all`          |
