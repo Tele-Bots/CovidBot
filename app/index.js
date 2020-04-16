@@ -22,7 +22,7 @@ bot.on('message', (msg) => {
             return console.log(error)
         }
 
-        if (!error && res.statusCode == 200) {
+        if (!error && res.statusCode == 200 && msg.text != undefined) {
             let userMessage = msg.text.toLowerCase().replace(/[^a-zA-Z ]/g, "")
 
             // `/start` command
