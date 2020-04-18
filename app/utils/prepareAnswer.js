@@ -33,6 +33,12 @@ function prepareStatsCompactAnswer(body, index, nameState) {
 function prepareStatsStateAnswer(body) {
     let statewise = body['statewise']
     let data = '\n\n\u{1F4C8} Top 15 states with most cases'
+
+    // Sorting the data
+    statewise.sort(function (a, b) {
+        return b.confirmed - a.confirmed;
+    });
+
     statewise.forEach((object, index) => {
         if (index == 0 || index > 15)
             return
@@ -48,11 +54,18 @@ function prepareStatsDistrictAnswer(body, stateName) {
     let districtwise = body[stateName]
     let districtData = districtwise['districtData']
 
+    // Preparing a sorted array to use it later to
+    // access names in sorted order
+    let sortedData = []
+    for (let key in districtData) {
+        sortedData.push({ name: key, confirmed: districtData[key].confirmed, delta: districtData[key].delta })
+    }
+    sortedData.sort(function (x, y) { return y.confirmed - x.confirmed })
+   
     let data = '\n\n\u{1F4C8} District-wise analysis'
-
-    for (district in districtData) {
-        let eachDistrictData = districtData[district]
-        data += '\n<b>' + district + '</b>: ' + eachDistrictData['confirmed']
+    for (var i = 0; i < sortedData.length; i++) {
+        let eachDistrictData = districtData[sortedData[i].name]
+        data += '\n<b>' + sortedData[i].name + '</b>: ' + eachDistrictData['confirmed']
         let deltaData = eachDistrictData['delta']
         if (parseInt(deltaData['confirmed']) > 0) {
             data += '<i> (+' + deltaData['confirmed'] + ') </i>'
