@@ -2,6 +2,7 @@ const TelegramBot = require('node-telegram-bot-api')
 const request = require('request')
 const { start } = require('./commands/start')
 const { all } = require('./commands/all')
+const { daily } = require('./commands/daily')
 const { stateName } = require('./commands/stateName')
 
 require('dotenv').config()
@@ -25,17 +26,23 @@ bot.on('message', (msg) => {
         if (!error && res.statusCode == 200 && msg.text != undefined) {
             let userMessage = msg.text.toLowerCase().replace(/[^a-zA-Z ]/g, "")
 
-            // `/start` command
+            // `start` command
             // Returns: Welcome message
             if (userMessage == "start")
-                return start(bot, chatId);
+                return start(bot, chatId)
 
             // `all` command
             // Returns: All india stats
             if (userMessage == 'all')
                 return all(body, bot, chatId)
 
-            // `{statename} or {stateCode} command
+            // `daily` command
+            // Returns: All india daily
+            // changes for all 10 days
+            if (userMessage == 'daily')
+                return daily(body, bot, chatId)
+
+            // `{statename}` or `{stateCode}` command
             // Returns: State wise stats
             return stateName(body, userMessage, bot, chatId)
         }

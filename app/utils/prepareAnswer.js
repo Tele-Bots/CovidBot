@@ -61,7 +61,7 @@ function prepareStatsDistrictAnswer(body, stateName) {
         sortedData.push({ name: key, confirmed: districtData[key].confirmed, delta: districtData[key].delta })
     }
     sortedData.sort(function (x, y) { return y.confirmed - x.confirmed })
-   
+
     let data = '\n\n\u{1F4C8} District-wise analysis'
     for (var i = 0; i < sortedData.length; i++) {
         let eachDistrictData = districtData[sortedData[i].name]
@@ -74,8 +74,22 @@ function prepareStatsDistrictAnswer(body, stateName) {
     return data
 }
 
+function prepareDailyStatsAnswer(body) {
+    let data = '\n\n\u{1F55C} Daily change analysis for past 5 days (<i>All India</i>)\n'
+    let dailyData = body['cases_time_series']
+    dailyData.reverse()
+    console.log(dailyData)
+    for (let i = 0; i < 5; i++) {
+        let date = dailyData[i].date
+        date = date.substring(0, date.length - 1);
+        data += '\n<b>' + date + '</b>: ' + dailyData[i].dailyconfirmed + ' new cases.'
+    }
+    return data
+}
+
 module.exports = {
     prepareStatsCompactAnswer,
     prepareStatsStateAnswer,
-    prepareStatsDistrictAnswer
+    prepareStatsDistrictAnswer,
+    prepareDailyStatsAnswer
 }
