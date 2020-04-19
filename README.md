@@ -1,6 +1,6 @@
 <p align="center"><img src="https://image.flaticon.com/icons/svg/2785/2785741.svg" align="center" width="175"></p>
 <h1 align="center">Covid19Bot</h1>
-<h5 align="center">Get LIVE Corona stats from your state.</h5>
+<h5 align="center">Feature-rich bot to get live Covid-19 stats.</h5>
 
 <p align="center"><img src="https://user-images.githubusercontent.com/30543444/79410845-1241ba80-7fbf-11ea-86ae-0be146a18db1.png" align="center" width="400"></p>
   
@@ -9,6 +9,8 @@
 | StateName/StateCode     | Gives stats of state data/ District-wise sorted analysis    | :heavy_check_mark: | `Punjab`,`pb`  |
 | all                     | Gives all india stats/ Top 15 states with most cases        | :heavy_check_mark: | `all`          |
 | daily                   | Gives all india daily changes analysis for past 5 days      | :heavy_check_mark: | `daily`        |
+| daily N                 | Gives all india daily changes analysis for past `N` days    | `Coming Soon`      | `daily 15`     |
+| test State              | Lists all the test centers for Corona in the given state    | `Coming Soon`      | `test punjab`  |
 
 ### Features:
 - [x] No hectic menus. Just send the command and get the stats instantly.
