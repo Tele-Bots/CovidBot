@@ -9,7 +9,7 @@
 | StateName/StateCode     | Gives stats of state data/ District-wise sorted analysis    | :heavy_check_mark: | `Punjab`,`pb`  |
 | all                     | Gives all india stats/ Top 15 states with most cases        | :heavy_check_mark: | `all`          |
 | daily                   | Gives all india daily changes analysis for past 5 days      | :heavy_check_mark: | `daily`        |
-| daily N                 | Gives all india daily changes analysis for past `N` days    | `Coming Soon`      | `daily 15`     |
+| daily N                 | Gives all india daily changes analysis for past `N` days    | :heavy_check_mark: | `daily 15`     |
 | test State              | Lists all the test centers for Corona in the given state    | `Coming Soon`      | `test punjab`  |
 
 ### Features:
