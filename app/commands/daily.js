@@ -1,7 +1,7 @@
 const prepareAnswer = require('./../utils/prepareAnswer')
 
-function daily(body, bot, chatId) {
-    let data = prepareAnswer.prepareDailyStatsAnswer(body)
+function daily(body, bot, chatId, n = 5) {
+    let data = prepareAnswer.prepareDailyStatsAnswer(body, n)
     return bot.sendMessage(chatId, data, {
         parse_mode: 'HTML'
     })

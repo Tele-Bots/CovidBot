@@ -24,7 +24,7 @@ bot.on('message', (msg) => {
         }
 
         if (!error && res.statusCode == 200 && msg.text != undefined) {
-            let userMessage = msg.text.toLowerCase().replace(/[^a-zA-Z ]/g, "")
+            let userMessage = msg.text.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, "")
 
             // `start` command
             // Returns: Welcome message
@@ -39,8 +39,16 @@ bot.on('message', (msg) => {
             // `daily` command
             // Returns: All india daily
             // changes for all 10 days
-            if (userMessage == 'daily')
+            if (userMessage == 'daily') {
                 return daily(body, bot, chatId)
+            }
+
+            const pattern = /daily (\d+)/
+            if (pattern.test(userMessage)) {
+                const n = pattern.exec(userMessage)[1]
+                return daily(body, bot, chatId, n)
+            }
+
 
             // `{statename}` or `{stateCode}` command
             // Returns: State wise stats

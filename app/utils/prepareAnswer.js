@@ -74,12 +74,12 @@ function prepareStatsDistrictAnswer(body, stateName) {
     return data
 }
 
-function prepareDailyStatsAnswer(body) {
-    let data = '\n\n\u{1F55C} Daily change analysis for past 5 days (<i>All India</i>)\n'
+function prepareDailyStatsAnswer(body, n) {
     let dailyData = body['cases_time_series']
+    n = Math.min(n, dailyData.length)
+    let data = `\n\n\u{1F55C} Daily change analysis for past ${n} days (<i>All India</i>)\n`
     dailyData.reverse()
-    console.log(dailyData)
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < n; i++) {
         let date = dailyData[i].date
         date = date.substring(0, date.length - 1);
         data += '\n<b>' + date + '</b>: ' + dailyData[i].dailyconfirmed + ' new cases.'
