@@ -112,3 +112,6 @@ temp/
 
 # vscode
 .vscode
+
+# manifest
+*.yml
