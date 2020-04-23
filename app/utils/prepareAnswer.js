@@ -51,7 +51,7 @@ function prepareStatsStateAnswer(body) {
 }
 
 function prepareStatsDistrictAnswer(body, stateName) {
-    if (body == undefined || stateName == undefined)
+    if (body == undefined || stateName == undefined || body[stateName] == undefined)
         return
         
     let districtwise = body[stateName]
