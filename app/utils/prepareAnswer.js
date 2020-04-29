@@ -53,7 +53,7 @@ function prepareStatsStateAnswer(body) {
 function prepareStatsDistrictAnswer(body, stateName) {
     if (body == undefined || stateName == undefined || body[stateName] == undefined)
         return
-        
+
     let districtwise = body[stateName]
     let districtData = districtwise['districtData']
 
@@ -90,9 +90,26 @@ function prepareDailyStatsAnswer(body, n) {
     return data
 }
 
+function prepareTestingResourceAnswer(stateResources) {
+    var data = `\n\n\u{1F9EA} COVID-19 Testing Labs in ${stateResources[0].state}, showing ${stateResources.length} results\n`
+
+    stateResources.forEach(stateResource => {
+        data += `
+
+        <b>${stateResource.nameoftheorganisation}, ${stateResource.city}</b>
+        Description: ${stateResource.descriptionandorserviceprovided}.
+        <i>Phone Number: ${stateResource.phonenumber}</i>
+        <i>Website: ${stateResource.contact}</i>
+        `
+    })
+
+    return data
+}
+
 module.exports = {
     prepareStatsCompactAnswer,
     prepareStatsStateAnswer,
     prepareStatsDistrictAnswer,
-    prepareDailyStatsAnswer
+    prepareDailyStatsAnswer,
+    prepareTestingResourceAnswer
 }

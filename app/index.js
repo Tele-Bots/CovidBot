@@ -4,8 +4,9 @@ const { start } = require('./commands/start')
 const { all } = require('./commands/all')
 const { daily } = require('./commands/daily')
 const { stateName } = require('./commands/stateName')
+const { testingCentres } = require('./commands/testingCentres')
 
-require('dotenv').config()
+require('dotenv').config({ path: __dirname + '/../.env' })
 
 let options = { json: true }
 const url = 'https://api.covid19india.org/data.json'
@@ -43,12 +44,25 @@ bot.on('message', (msg) => {
                 return daily(body, bot, chatId)
             }
 
-            const pattern = /daily (\d+)/
-            if (pattern.test(userMessage)) {
-                const n = pattern.exec(userMessage)[1]
+            const dailyPattern = /daily (\d+)/
+            if (dailyPattern.test(userMessage)) {
+                const n = dailyPattern.exec(userMessage)[1]
                 return daily(body, bot, chatId, n)
             }
 
+            const testingDefaultPattern = /test ([a-zA-Z]+)/
+            if (testingDefaultPattern.test(userMessage)) {
+                const stateUserMessage = testingDefaultPattern.exec(userMessage)[1]
+                const testingNumberPattern = /test ([a-zA-Z]+) (\d+)/
+                let n
+                if (testingNumberPattern.test(userMessage)) {
+                    n = Number(testingNumberPattern.exec(userMessage)[2])
+                } else {
+                    n = 5
+                }
+
+                return testingCentres(body, bot, chatId, stateUserMessage, n)
+            }
 
             // `{statename}` or `{stateCode}` command
             // Returns: State wise stats
