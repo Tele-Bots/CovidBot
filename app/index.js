@@ -6,7 +6,7 @@ const { daily } = require('./commands/daily')
 const { stateName } = require('./commands/stateName')
 const { testingCentres } = require('./commands/testingCentres')
 
-require('dotenv').config({ path: __dirname + '/../.env' })
+require('dotenv').config()
 
 let options = { json: true }
 const url = 'https://api.covid19india.org/data.json'
@@ -53,15 +53,7 @@ bot.on('message', (msg) => {
             const testingDefaultPattern = /test ([a-zA-Z]+)/
             if (testingDefaultPattern.test(userMessage)) {
                 const stateUserMessage = testingDefaultPattern.exec(userMessage)[1]
-                const testingNumberPattern = /test ([a-zA-Z]+) (\d+)/
-                let n
-                if (testingNumberPattern.test(userMessage)) {
-                    n = Number(testingNumberPattern.exec(userMessage)[2])
-                } else {
-                    n = 5
-                }
-
-                return testingCentres(body, bot, chatId, stateUserMessage, n)
+                return testingCentres(body, bot, chatId, stateUserMessage)
             }
 
             // `{statename}` or `{stateCode}` command
