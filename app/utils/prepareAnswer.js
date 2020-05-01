@@ -94,13 +94,7 @@ function prepareTestingResourceAnswer(stateResources) {
     var data = `\n\n\u{1F9EA} COVID-19 Testing Labs in ${stateResources[0].state}, showing ${stateResources.length} results\n`
 
     stateResources.forEach(stateResource => {
-        data += `
-
-        <b>${stateResource.nameoftheorganisation}, ${stateResource.city}</b>
-        Description: ${stateResource.descriptionandorserviceprovided}.
-        <i>Phone Number: ${stateResource.phonenumber}</i>
-        <i>Website: ${stateResource.contact}</i>
-        `
+        data += `\n<b>${stateResource.nameoftheorganisation}, ${stateResource.city}\n</b>Description: ${stateResource.descriptionandorserviceprovided}.\n<i>Phone Number: ${stateResource.phonenumber}</i>\n<i>Website: ${stateResource.contact}</i>\n`
     })
 
     return data
