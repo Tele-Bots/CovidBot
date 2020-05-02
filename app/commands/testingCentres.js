@@ -15,22 +15,20 @@ function testingCentres(body, bot, chatId, stateUserMessage) {
             if (!error && res.statusCode == 200) {
                   var statewise = body['statewise']
                   var stateName
-                  statewise.every(state => {
-                        if (state['state'].toLowerCase() == stateUserMessage.toLowerCase() ||
-                              state['statecode'].toLowerCase() == stateUserMessage.toLowerCase()) {
-                              stateName = state['state']
-                              return false
-                        } else {
-                              return true
+                  for (let index = 0; index < statewise.length; index++) {
+                        if (statewise[index]['state'].toLowerCase() == stateUserMessage.toLowerCase() ||
+                              statewise[index]['statecode'].toLowerCase() == stateUserMessage.toLowerCase()) {
+                              stateName = statewise[index]['state']
+                              break
                         }
-                  })
+                  }
 
                   if (stateName == undefined) {
-                        prepareError(bot, chatId)
+                        return prepareError(bot, chatId)
                   }
 
                   var stateResources = resourcesBody['resources'].filter(resource =>
-                        resource.state == stateName
+                        resource.state == stateName.replace("and", "&")  // "Jammu and Kashmir" API inconsistency
                         && resource.category == TESTING_RESOURCE_CATEGORY
                   )
 
