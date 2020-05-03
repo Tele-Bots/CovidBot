@@ -50,7 +50,7 @@ bot.on('message', (msg) => {
                 return daily(body, bot, chatId, n)
             }
 
-            const testingDefaultPattern = /test( ?[a-zA-Z&])+/
+            const testingDefaultPattern = /test ( ?[a-zA-Z&])+/
             if (testingDefaultPattern.test(userMessage)) {
                 const stateUserMessage = testingDefaultPattern.exec(userMessage)[0].split('test ')[1].replace(" & ", " and ")
                 return testingCentres(body, bot, chatId, stateUserMessage)
