@@ -91,6 +91,10 @@ function prepareDailyStatsAnswer(body, n) {
 }
 
 function prepareTestingResourceAnswer(stateResources) {
+    if (stateResources.length === 0) {
+        return `\n\n\u{1F9EA} No COVID-19 Testing Labs found`
+    }
+
     var data = `\n\n\u{1F9EA} COVID-19 Testing Labs in ${stateResources[0].state}, found ${stateResources.length} results\n`
 
     stateResources.forEach(stateResource => {

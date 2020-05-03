@@ -28,7 +28,7 @@ function testingCentres(body, bot, chatId, stateUserMessage) {
                   }
 
                   var stateResources = resourcesBody['resources'].filter(resource =>
-                        resource.state == stateName.replace("and", "&")  // "Jammu and Kashmir" API inconsistency
+                        resource.state == stateName.replace(" and ", " & ")
                         && resource.category == TESTING_RESOURCE_CATEGORY
                   )
 
