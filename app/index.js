@@ -4,6 +4,7 @@ const { start } = require('./commands/start')
 const { all } = require('./commands/all')
 const { daily } = require('./commands/daily')
 const { stateName } = require('./commands/stateName')
+const { testingCentres } = require('./commands/testingCentres')
 
 require('dotenv').config()
 
@@ -24,7 +25,7 @@ bot.on('message', (msg) => {
         }
 
         if (!error && res.statusCode == 200 && msg.text != undefined) {
-            let userMessage = msg.text.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, "")
+            let userMessage = msg.text.toLowerCase().replace(/[^a-zA-Z0-9& ]/g, "")
 
             // `start` command
             // Returns: Welcome message
@@ -43,12 +44,17 @@ bot.on('message', (msg) => {
                 return daily(body, bot, chatId)
             }
 
-            const pattern = /daily (\d+)/
-            if (pattern.test(userMessage)) {
-                const n = pattern.exec(userMessage)[1]
+            const dailyPattern = /daily (\d+)/
+            if (dailyPattern.test(userMessage)) {
+                const n = dailyPattern.exec(userMessage)[1]
                 return daily(body, bot, chatId, n)
             }
 
+            const testingDefaultPattern = /test ( ?[a-zA-Z&])+/
+            if (testingDefaultPattern.test(userMessage)) {
+                const stateUserMessage = testingDefaultPattern.exec(userMessage)[0].split('test ')[1].replace(" & ", " and ")
+                return testingCentres(body, bot, chatId, stateUserMessage)
+            }
 
             // `{statename}` or `{stateCode}` command
             // Returns: State wise stats
