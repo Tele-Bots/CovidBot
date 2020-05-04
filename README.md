@@ -10,7 +10,9 @@
 | all                     | Gives all india stats/ Top 15 states with most cases        | :heavy_check_mark: | `all`          |
 | daily                   | Gives all india daily changes analysis for past 5 days      | :heavy_check_mark: | `daily`        |
 | daily N                 | Gives all india daily changes analysis for past `N` days    | :heavy_check_mark: | `daily 15`     |
-| test State              | Lists all the test centers for Corona in the given state    | `Coming Soon`      | `test punjab`  |
+| test State              | Gives all the test centers for Corona in the given state    | :heavy_check_mark: | `test punjab`  |
+| new                     | Gives all the states with sorted new cases                  |   `Coming soon`    | `new`          |
+| new State               | Gives all the districts with sorted new cases               |   `Coming soon`    | `new punjab`   |
 
 ### Features:
 - [x] No hectic menus. Just send the command and get the stats instantly.
