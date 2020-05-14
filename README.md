@@ -2,7 +2,7 @@
 <h1 align="center">Covid19Bot</h1>
 <h5 align="center">Feature-rich bot to get live Covid-19 stats.</h5>
 
-<p align="center"><img src="https://user-images.githubusercontent.com/30543444/81776822-2cfb4680-950d-11ea-9510-e5878627e18f.png" align="center" width="400"></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/30543444/81913483-a9655680-95ed-11ea-9b32-b89598fc9f88.png" align="center" width="400"></p>
   
 | Command                 | Description                                                 | Status             | Example        |
 | ----------------------- |:-----------------------------------------------------------:|:------------------:|  -------------:|
