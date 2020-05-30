@@ -27,6 +27,8 @@ function prepareStatsCompactAnswer(body, index, nameState) {
             data += '<i> (' + statedata['deltadeaths'] + ' new death)</i>'
         }
     }
+    let noOfTests = body['tested'].reverse()[0]['totalsamplestested'];
+    data += '\nCitizens Tested: ' + noOfTests;
     return data
 }
 
