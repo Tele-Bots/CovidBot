@@ -2,34 +2,26 @@ function prepareStatsCompactAnswer(body, index, nameState) {
     let statewise = body['statewise']
     let statedata = statewise[index]
     let data = '<b>' + nameState + '</b>'
-    data += "\nConfirmed: " + statedata['confirmed']
+    data += "\n\u{1F534} Confirmed: " + statedata['confirmed']
     if (parseInt(statedata['deltaconfirmed']) > 0) {
-        if (parseInt(statedata['deltaconfirmed']) > 1) {
-            data += '<i> (' + statedata['deltaconfirmed'] + ' new cases)</i>'
-        } else {
-            data += '<i> (' + statedata['deltaconfirmed'] + ' new case)</i>'
-        }
+        data += '<i> (+' + statedata['deltaconfirmed'] + ')</i>'
     }
-    data += "\nActive: " + statedata['active']
-    data += "\nRecovered: " + statedata['recovered']
+    data += "\n\u{1F7E0} Active: " + statedata['active']
+    data += "\n\u{1F7E2} Recovered: " + statedata['recovered']
     if (parseInt(statedata['deltarecovered']) > 0) {
-        if (parseInt(statedata['deltarecovered']) > 1) {
-            data += '<i> (' + statedata['deltarecovered'] + ' new recoveries)</i>'
-        } else {
-            data += '<i> (' + statedata['deltarecovered'] + ' new recovery)</i>'
-        }
+        data += '<i> (+' + statedata['deltarecovered'] + ')</i>'
     }
-    data += "\nDeaths: " + statedata['deaths']
+    data += "\n\u{26AB} Deaths: " + statedata['deaths']
     if (parseInt(statedata['deltadeaths']) > 0) {
-        if (parseInt(statedata['deltadeaths']) > 1) {
-            data += '<i> (' + statedata['deltadeaths'] + ' new deaths)</i>'
-        } else {
-            data += '<i> (' + statedata['deltadeaths'] + ' new death)</i>'
-        }
+        data += '<i> (+' + statedata['deltadeaths'] + ')</i>'
     }
-    let noOfTests = body['tested'].reverse()[0]['totalsamplestested'];
-    data += '\nCitizens Tested: ' + noOfTests;
     return data
+}
+
+function prepareAllIndiaCasesTested(body) {
+    let noOfTests = body['tested'].reverse()[0]['totalsamplestested'];
+    data = '\n\u{26AA} ' + noOfTests + ' citizens tested';
+    return data;
 }
 
 function prepareStatsStateAnswer(body) {
@@ -111,6 +103,7 @@ function prepareTestingResourceAnswer(stateResources) {
 
 module.exports = {
     prepareStatsCompactAnswer,
+    prepareAllIndiaCasesTested,
     prepareStatsStateAnswer,
     prepareStatsDistrictAnswer,
     prepareDailyStatsAnswer,
