@@ -1,26 +1,30 @@
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 function prepareStatsCompactAnswer(body, index, nameState) {
     let statewise = body['statewise']
     let statedata = statewise[index]
     let data = '<b>' + nameState + '</b>'
-    data += "\n\u{1F534} Confirmed: " + statedata['confirmed']
+    data += "\n\u{1F534} Confirmed: " + numberWithCommas(statedata['confirmed'])
     if (parseInt(statedata['deltaconfirmed']) > 0) {
-        data += '<i> (+' + statedata['deltaconfirmed'] + ')</i>'
+        data += '<i> (+' + numberWithCommas(statedata['deltaconfirmed']) + ')</i>'
     }
-    data += "\n\u{1F7E0} Active: " + statedata['active']
-    data += "\n\u{1F7E2} Recovered: " + statedata['recovered']
+    data += "\n\u{1F7E0} Active: " + numberWithCommas(statedata['active'])
+    data += "\n\u{1F7E2} Recovered: " + numberWithCommas(statedata['recovered'])
     if (parseInt(statedata['deltarecovered']) > 0) {
-        data += '<i> (+' + statedata['deltarecovered'] + ')</i>'
+        data += '<i> (+' + numberWithCommas(statedata['deltarecovered']) + ')</i>'
     }
-    data += "\n\u{26AB} Deaths: " + statedata['deaths']
+    data += "\n\u{26AB} Deaths: " + numberWithCommas(statedata['deaths'])
     if (parseInt(statedata['deltadeaths']) > 0) {
-        data += '<i> (+' + statedata['deltadeaths'] + ')</i>'
+        data += '<i> (+' + numberWithCommas(statedata['deltadeaths']) + ')</i>'
     }
     return data
 }
 
 function prepareAllIndiaCasesTested(body) {
     let noOfTests = body['tested'].reverse()[0]['totalsamplestested'];
-    data = '\n\u{26AA} ' + noOfTests + ' citizens tested';
+    data = '\n\u{26AA} ' + numberWithCommas(noOfTests) + ' citizens tested';
     return data;
 }
 
@@ -38,7 +42,7 @@ function prepareStatsStateAnswer(body) {
             return
         data += '\n<b>' + object['state'] + '</b>: ' + object['confirmed']
         if (parseInt(object['deltaconfirmed']) > 0) {
-            data += '<i> (+' + object['deltaconfirmed'] + ') </i>'
+            data += '<i> (+' + numberWithCommas(object['deltaconfirmed']) + ') </i>'
         }
     });
     return data
@@ -62,10 +66,10 @@ function prepareStatsDistrictAnswer(body, stateName) {
     let data = '\n\n\u{1F4C8} District-wise analysis'
     for (var i = 0; i < sortedData.length; i++) {
         let eachDistrictData = districtData[sortedData[i].name]
-        data += '\n<b>' + sortedData[i].name + '</b>: ' + eachDistrictData['confirmed']
+        data += '\n<b>' + sortedData[i].name + '</b>: ' + numberWithCommas(eachDistrictData['confirmed'])
         let deltaData = eachDistrictData['delta']
         if (parseInt(deltaData['confirmed']) > 0) {
-            data += '<i> (+' + deltaData['confirmed'] + ') </i>'
+            data += '<i> (+' + numberWithCommas(deltaData['confirmed']) + ') </i>'
         }
     }
     return data
@@ -79,7 +83,7 @@ function prepareDailyStatsAnswer(body, n) {
     for (let i = 0; i < n; i++) {
         let date = dailyData[i].date
         date = date.substring(0, date.length - 1);
-        data += '\n<b>' + date + '</b>: ' + dailyData[i].dailyconfirmed + ' new cases.'
+        data += '\n<b>' + date + '</b>: ' + numberWithCommas(dailyData[i].dailyconfirmed) + ' new cases.'
     }
     return data
 }
