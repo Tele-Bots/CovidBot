@@ -47,7 +47,7 @@ function prepareStatsStateAnswer(body) {
     statewise.forEach((object, index) => {
         if (index == 0 || index > 15)
             return
-        data += '\n<b>' + object['state'] + '</b>: ' + object['confirmed']
+        data += '\n<b>' + object['state'] + '</b>: ' + numberWithIndianCommas(object['confirmed'])
         if (parseInt(object['deltaconfirmed']) > 0) {
             data += '<i> (+' + numberWithIndianCommas(object['deltaconfirmed']) + ') </i>'
         }
