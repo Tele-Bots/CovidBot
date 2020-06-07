@@ -1,4 +1,4 @@
-function numberWithIndianCommas(x){
+function numberWithIndianCommas(x) {
     var y = x.toString()
     if (y.length > 3) {
         var z = y.substr(y.length - 3, 3)
@@ -7,7 +7,7 @@ function numberWithIndianCommas(x){
         return y + ',' + z
     }
     else return y
-    }
+}
 
 function prepareStatsCompactAnswer(body, index, nameState) {
     let statewise = body['statewise']
@@ -82,6 +82,24 @@ function prepareStatsDistrictAnswer(body, stateName) {
     return data
 }
 
+function prepareStateTestStat(body, stateName) {
+
+    let stateWise = body['states_tested_data'], stateDataIndex = -1
+    for (let index = 0; index < stateWise.length; index++) {
+        let currentData = stateWise[index]
+        if (currentData['state'].toLowerCase() === stateName.toLowerCase())
+            stateDataIndex = index
+    }
+    if (stateDataIndex === -1)
+        return '\n\u{26AA} Citizens Tested: Not Available'
+    else {
+        let stateData = stateWise[stateDataIndex]
+        let data = '\n\u{26AA} Citizens Tested: ' + numberWithIndianCommas(stateData['totaltested'])
+        return data
+    }
+
+}
+
 function prepareDailyStatsAnswer(body, n) {
     let dailyData = body['cases_time_series']
     n = Math.min(n, dailyData.length)
@@ -118,5 +136,6 @@ module.exports = {
     prepareStatsStateAnswer,
     prepareStatsDistrictAnswer,
     prepareDailyStatsAnswer,
-    prepareTestingResourceAnswer
+    prepareTestingResourceAnswer,
+    prepareStateTestStat
 }
