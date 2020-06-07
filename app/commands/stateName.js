@@ -28,6 +28,8 @@ function stateName(body, userMessage, bot, chatId) {
             if (stateindex == undefined)
                 return prepareError(bot, chatId)
 
+                bot.sendChatAction(chatId,'typing',{})
+
             request(stateTestUrl, options, (err, response, body3) => {
                 if (err) {
                     return console.log(err)
