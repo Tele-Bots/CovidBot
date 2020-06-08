@@ -96,13 +96,15 @@ function prepareStatsDistrictAnswer(body, stateName) {
 function prepareStateTestStat(body, stateName) {
 
     let stateWise = body['states_tested_data'], stateDataIndex = -1
-    for (let index = 0; index < stateWise.length; index++) {
+    for (let index = stateWise.length-1; index >=0; index--) {
         let currentData = stateWise[index]
-        if (currentData['state'].toLowerCase() === stateName.toLowerCase())
+        if (currentData['state'].toLowerCase() === stateName.toLowerCase()){
             stateDataIndex = index
+            break
+        }
     }
     if (stateDataIndex === -1)
-        return '\n\u{26AA} Citizens Tested: Not Available'
+        return ''
     else {
         let stateData = stateWise[stateDataIndex]
         let data = '\n\u{26AA} ' + numberWithIndianCommas(stateData['totaltested']) + ' citizens tested'
