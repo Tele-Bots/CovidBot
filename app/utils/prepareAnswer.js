@@ -17,7 +17,7 @@ function prepareStatsCompactAnswer(body, index, nameState) {
     if (parseInt(statedata['deltaconfirmed']) > 0) {
         data += '<i> (+' + numberWithIndianCommas(statedata['deltaconfirmed']) + ')</i>'
     }
-    data += "\n\u{1F7E0} Active: " + numberWithIndianCommas(statedata['active']
+    data += "\n\u{1F7E0} Active: " + numberWithIndianCommas(statedata['active'])
     data += "\n\u{1F7E2} Recovered: " + numberWithIndianCommas(statedata['recovered'])
     if (parseInt(statedata['deltarecovered']) > 0) {
         data += '<i> (+' + numberWithIndianCommas(statedata['deltarecovered']) + ')</i>'
