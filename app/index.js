@@ -5,6 +5,7 @@ const { all } = require('./commands/all')
 const { daily } = require('./commands/daily')
 const { stateName } = require('./commands/stateName')
 const { testingCentres } = require('./commands/testingCentres')
+const { newStates } = require('./commands/new')
 
 require('dotenv').config()
 
@@ -55,7 +56,12 @@ bot.on('message', (msg) => {
                 const stateUserMessage = testingDefaultPattern.exec(userMessage)[0].split('test ')[1].replace(" & ", " and ")
                 return testingCentres(body, bot, chatId, stateUserMessage)
             }
-
+            
+            //'new' command
+            if (userMessage === 'new') {
+                return newStates(body,bot,chatId)
+            }
+            
             // `{statename}` or `{stateCode}` command
             // Returns: State wise stats
             return stateName(body, userMessage, bot, chatId)
