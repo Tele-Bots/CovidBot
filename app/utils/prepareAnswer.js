@@ -25,7 +25,7 @@ function prepareStatsCompactAnswer(body, index, nameState) {
      data += '<i> (+' + numberWithIndianCommas(deltaActive) + ')</i>'
  else if (deltaActive < 0) {
      //required to display change in active numbers correctly if active number decreases
-     deltaActive = deltaActive + (-2) * deltaActive
+     deltaActive = Math.abs(deltaActive)
      data += '<i> (-' + numberWithIndianCommas(deltaActive) + ')</i>'
  }
     
