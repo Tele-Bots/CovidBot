@@ -18,6 +18,17 @@ function prepareStatsCompactAnswer(body, index, nameState) {
         data += '<i> (+' + numberWithIndianCommas(statedata['deltaconfirmed']) + ')</i>'
     }
     data += "\n\u{1F7E0} Active: " + numberWithIndianCommas(statedata['active'])
+    
+    let deltaActive = parseInt(statedata['deltaconfirmed']) - parseInt(statedata['deltarecovered']) - parseInt(statedata['deltadeaths'])
+//change in active number will not be displayed if it is zero.
+ if (deltaActive > 0)
+     data += '<i> (+' + numberWithIndianCommas(deltaActive) + ')</i>'
+ else if (deltaActive < 0) {
+     //required to display change in active numbers correctly if active number decreases
+     deltaActive = Math.abs(deltaActive)
+     data += '<i> (-' + numberWithIndianCommas(deltaActive) + ')</i>'
+ }
+    
     data += "\n\u{1F7E2} Recovered: " + numberWithIndianCommas(statedata['recovered'])
     if (parseInt(statedata['deltarecovered']) > 0) {
         data += '<i> (+' + numberWithIndianCommas(statedata['deltarecovered']) + ')</i>'
