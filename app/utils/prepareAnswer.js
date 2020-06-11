@@ -95,7 +95,7 @@ function prepareStateTestStat(body, stateName) {
     if (stateDataIndex === -1)
         return ''
     else {
-        let stateData = stateWise[stateDataIndex]
+        let stateData = stateWise[--stateDataIndex]
         let data = '\n\u{26AA} ' + numberWithIndianCommas(stateData['totaltested']) + ' citizens tested'
         return data
     }
