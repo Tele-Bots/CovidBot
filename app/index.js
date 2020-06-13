@@ -7,10 +7,12 @@ const { stateName } = require('./commands/stateName')
 const { testingCentres } = require('./commands/testingCentres')
 const { newStates } = require('./commands/new')
 
+let ua = require('universal-analytics');
 require('dotenv').config()
-
 let options = { json: true }
 const url = 'https://api.covid19india.org/data.json'
+const trackingCode = process.env.ANALYTICS_ID
+let visitor = ua(trackingCode)
 
 const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN, {
     polling: true
@@ -20,6 +22,7 @@ const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN, {
 bot.on('message', (msg) => {
     const chatId = msg.chat.id
 
+    visitor.event("Message", "Message").send()
     request(url, options, (error, res, body) => {
         if (error) {
             return console.log(error)
