@@ -11,7 +11,7 @@
 | daily                   | Gives all india daily changes analysis for past 5 days      | :heavy_check_mark: | `daily`        |
 | daily N                 | Gives all india daily changes analysis for past `N` days    | :heavy_check_mark: | `daily 15`     |
 | test State              | Gives all the test centers for Corona in the given state    | :heavy_check_mark: | `test punjab`  |
-| new                     | Gives all the states with sorted new cases                  |   `Coming soon`    | `new`          |
+| new                     | Gives all the states with sorted new cases                  | :heavy_check_mark: | `new`          |
 | new State               | Gives all the districts with sorted new cases               |   `Coming soon`    | `new punjab`   |
 
 ### Features:
