@@ -159,10 +159,10 @@ function prepareNewTopStatesStat(body) {
     for (let [key, value] of storeIndex) { 
         sortedData.push(key)
     }
-    let data = '<b>\u{1F4C8}Top States With Most New Confirmed Cases</b>\n'
+    let data = '<b>\u{1F4C8} Top states with most new confirmed cases</b>\n'
     var len
     if (sortedData.length === 0)
-        return data += '\nNo data for new cases available right now!!'
+        return data += '\nNo data for new cases available right now !'
     else if (sortedData.length > 15)
         len = 15
     else
