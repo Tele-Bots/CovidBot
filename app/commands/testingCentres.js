@@ -1,47 +1,47 @@
-const request = require('request')
-const prepareAnswer = require('./../utils/prepareAnswer')
-const { prepareError } = require('./../utils/prepareError')
-const resourcesUrl = 'https://api.covid19india.org/resources/resources.json'
-let options = { json: true }
+const request = require('request');
+const prepareAnswer = require('../utils/prepareAnswer');
+const { prepareError } = require('../utils/prepareError');
 
-const TESTING_RESOURCE_CATEGORY = "CoVID-19 Testing Lab"
+const resourcesUrl = 'https://api.covid19india.org/resources/resources.json';
+const options = { json: true };
+
+const TESTING_RESOURCE_CATEGORY = 'CoVID-19 Testing Lab';
 
 function testingCentres(body, bot, chatId, stateUserMessage) {
-      request(resourcesUrl, options, (error, res, resourcesBody) => {
-            if (error) {
-                  return console.log(error)
-            }
+  request(resourcesUrl, options, (error, res, resourcesBody) => {
+    if (error) {
+      return error;
+    }
 
-            if (!error && res.statusCode == 200) {
-                  var statewise = body['statewise']
-                  var stateName
-                  for (let index = 0; index < statewise.length; index++) {
-                        if (statewise[index]['state'].toLowerCase() == stateUserMessage.toLowerCase() ||
-                              statewise[index]['statecode'].toLowerCase() == stateUserMessage.toLowerCase()) {
-                              stateName = statewise[index]['state']
-                              break
-                        }
-                  }
+    if (!error && res.statusCode === 200) {
+      const { statewise } = body;
+      let stateName;
+      for (let index = 0; index < statewise.length; index += 1) {
+        if (statewise[index].state.toLowerCase() === stateUserMessage.toLowerCase()
+          || statewise[index].statecode.toLowerCase() === stateUserMessage.toLowerCase()) {
+          stateName = statewise[index].state;
+          break;
+        }
+      }
 
-                  if (stateName == undefined) {
-                        return prepareError(bot, chatId)
-                  }
+      if (stateName === undefined) {
+        return prepareError(bot, chatId);
+      }
 
-                  var stateResources = resourcesBody['resources'].filter(resource =>
-                        resource.state == stateName.replace(" and ", " & ")
-                        && resource.category == TESTING_RESOURCE_CATEGORY
-                  )
+      const stateResources = resourcesBody.resources.filter((resource) => resource.state === stateName.replace(' and ', ' & ')
+        && resource.category === TESTING_RESOURCE_CATEGORY);
 
-                  var data = prepareAnswer.prepareTestingResourceAnswer(stateResources)
+      const data = prepareAnswer.prepareTestingResourceAnswer(stateResources);
 
-                  return bot.sendMessage(chatId, data, {
-                        parse_mode: 'HTML',
-                        disable_web_page_preview: true
-                  })
-            }
-      })
+      return bot.sendMessage(chatId, data, {
+        parse_mode: 'HTML',
+        disable_web_page_preview: true,
+      });
+    }
+    return true;
+  });
 }
 
 module.exports = {
-      testingCentres
-}
+  testingCentres,
+};

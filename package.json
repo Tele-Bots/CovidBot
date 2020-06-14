@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "nodemon app/index.js",
     "start": "node app/index.js",
+    "lint": "eslint \"**/*.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -29,6 +30,12 @@
     "express": "^4.17.1",
     "node-telegram-bot-api": "^0.40.0",
     "nodemon": "^2.0.3",
+    "request": "^2.88.2",
     "universal-analytics": "^0.4.20"
+  },
+  "devDependencies": {
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.21.2"
   }
 }
