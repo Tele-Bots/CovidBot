@@ -178,78 +178,46 @@ function prepareNewTopStatesStat(body) {
 }
 
 function prepareNewDistrictWiseState(body, stateName) {
-    let stateData = body[stateName]
-    let districtData = stateData['districtData']
-    sortedData = []
-    for (let key in districtData) {
-        sortedData.push({ name: key, delta: districtData[key].delta.confirmed ,confirmed: districtData[key].confirmed })
-    }
-    sortedData.sort(function (x, y) { return y.confirmed - x.confirmed })//applied this to display district with
-                                                                         //higher no of cases above other district
-                                                                         //if they both have equal new confirmed cases
-    sortedData.sort(function (x, y) { return y.delta - x.delta })
+  const stateData = body[stateName];
+  const { districtData } = stateData;
+  const sortedData = [];
+  // eslint-disable-next-line guard-for-in
+  for (const key in districtData) {
+    sortedData.push({
+      name: key,
+      delta: districtData[key].delta.confirmed,
+      confirmed: districtData[key].confirmed,
+    });
+  }
+  sortedData.sort((x, y) => y.confirmed - x.confirmed);// applied this to display district with
+  // higher no of cases above other district
+  // if they both have equal new confirmed cases
+  sortedData.sort((x, y) => y.delta - x.delta);
 
-    let flag = -1
+  let flag = -1;
 
-    let data = '\n\n\u{1F4C8} <b>Top districts with most new confirmed cases for ' + stateName + "</b>\n"
-    for (var i = 0; i < sortedData.length; i++) {
-        let eachDistrictData = districtData[sortedData[i].name]
-        let deltaData = eachDistrictData['delta']
-        if (parseInt(deltaData['confirmed']) > 0) {
-            data += '\n<b>' + sortedData[i].name + '</b>: ' + numberWithIndianCommas(eachDistrictData['confirmed'])
-            data += '<i> (+' + numberWithIndianCommas(deltaData['confirmed']) + ') </i>'
-            flag++
-        }
+  let data = `\n\n\u{1F4C8} <b>Top districts with most new confirmed cases for ${stateName}</b>\n`;
+  for (let i = 0; i < sortedData.length; i += 1) {
+    const eachDistrictData = districtData[sortedData[i].name];
+    const deltaData = eachDistrictData.delta;
+    if (parseInt(deltaData.confirmed, 10) > 0) {
+      data += `\n<b>${sortedData[i].name}</b>: ${numberWithIndianCommas(eachDistrictData.confirmed)}`;
+      data += `<i> (+${numberWithIndianCommas(deltaData.confirmed)}) </i>`;
+      flag += 1;
     }
-    if (flag === -1)
-        data += "\nNo data for district wise new cases available right now !"
-    return data
-}
-
-function prepareNewTopStatesStat(body) {
-    let statesData = body['statewise'], storeIndex = new Map, sortedData = []
-    for (let index = 0; index < statesData.length; index++) {
-        let currentState = statesData[index]
-        if (parseInt(currentState['deltaconfirmed']) > 0 &&
-            currentState['state'] !== 'State Unassigned' &&
-            currentState['state'] !== 'Total')
-            storeIndex.set(index, parseInt(currentState['deltaconfirmed']))
-
-    }
-    storeIndex[Symbol.iterator] = function* () {
-        yield* [...this.entries()].sort((a, b) => a[1] - b[1]);
-    }
-    for (let [key, value] of storeIndex) { 
-        sortedData.push(key)
-    }
-    let data = '<b>\u{1F4C8}Top States With Most New Confirmed Cases</b>\n'
-    var len
-    if (sortedData.length === 0)
-        return data += '\nNo data for new cases available right now!!'
-    else if (sortedData.length > 15)
-        len = 15
-    else
-        len = sortedData.length
-
-    sortedData.reverse()
-    
-    for (let i = 0; i < len; i++) {
-        let currentState = statesData[sortedData[i]]
-        data += '\n<b>' + currentState['state'] + ': </b>' + 
-        numberWithIndianCommas(currentState['confirmed']) + 
-        ' <i>(+' + numberWithIndianCommas(currentState['deltaconfirmed']) + ')</i>'
-    }
-    return data
+  }
+  if (flag === -1) { data += '\nNo data for district wise new cases available right now !'; }
+  return data;
 }
 
 module.exports = {
-    prepareStatsCompactAnswer,
-    prepareAllIndiaCasesTested,
-    prepareStatsStateAnswer,
-    prepareStatsDistrictAnswer,
-    prepareDailyStatsAnswer,
-    prepareTestingResourceAnswer,
-    prepareStateTestStat,
-    prepareNewTopStatesStat,
-    prepareNewDistrictWiseState
+  prepareStatsCompactAnswer,
+  prepareAllIndiaCasesTested,
+  prepareStatsStateAnswer,
+  prepareStatsDistrictAnswer,
+  prepareDailyStatsAnswer,
+  prepareTestingResourceAnswer,
+  prepareStateTestStat,
+  prepareNewTopStatesStat,
+  prepareNewDistrictWiseState,
 };

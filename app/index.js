@@ -1,13 +1,13 @@
-const TelegramBot = require('node-telegram-bot-api')
-const request = require('request')
+const TelegramBot = require('node-telegram-bot-api');
+const request = require('request');
 const ua = require('universal-analytics');
-const { start } = require('./commands/start')
-const { all } = require('./commands/all')
-const { daily } = require('./commands/daily')
-const { stateName } = require('./commands/stateName')
-const { testingCentres } = require('./commands/testingCentres')
-const { newStates } = require('./commands/new')
-const { newDistrictWiseState } = require('./commands/newState')
+const { start } = require('./commands/start');
+const { all } = require('./commands/all');
+const { daily } = require('./commands/daily');
+const { stateName } = require('./commands/stateName');
+const { testingCentres } = require('./commands/testingCentres');
+const { newStates } = require('./commands/new');
+const { newDistrictWiseState } = require('./commands/newState');
 
 require('dotenv').config();
 
@@ -65,28 +65,28 @@ bot.on('message', (msg) => {
         return newStates(body, bot, chatId);
       }
 
-            const testingDefaultPattern = /test ( ?[a-zA-Z&])+/
-            if (testingDefaultPattern.test(userMessage)) {
-                const stateUserMessage = testingDefaultPattern.exec(userMessage)[0].split('test ')[1].replace(" & ", " and ")
-                return testingCentres(body, bot, chatId, stateUserMessage)
-            }
+      const statePattern = /test ( ?[a-zA-Z&])+/;
+      if (statePattern.test(userMessage)) {
+        const stateUserMessage = statePattern.exec(userMessage)[0].split('test ')[1].replace(' & ', ' and ');
+        return testingCentres(body, bot, chatId, stateUserMessage);
+      }
 
-            //'new' command
-            if (userMessage === 'new') {
-                return newStates(body, bot, chatId)
-            }
+      // 'new' command
+      if (userMessage === 'new') {
+        return newStates(body, bot, chatId);
+      }
 
-            //'new state' command
-            const newDistrictPattern = /new ( ?[a-zA-Z&])+/
-            if (newDistrictPattern.test(userMessage)) {
-                const stateUserMessage = newDistrictPattern.exec(userMessage)[0].split('new ')[1].replace(" & ", " and ")
-                return newDistrictWiseState(body, bot, chatId, stateUserMessage)
-            }
+      // 'new state' command
+      const newDistrictPattern = /new ( ?[a-zA-Z&])+/;
+      if (newDistrictPattern.test(userMessage)) {
+        const stateUserMessage = newDistrictPattern.exec(userMessage)[0].split('new ')[1].replace(' & ', ' and ');
+        return newDistrictWiseState(body, bot, chatId, stateUserMessage);
+      }
 
-            // `{statename}` or `{stateCode}` command
-            // Returns: State wise stats
-            return stateName(body, userMessage, bot, chatId)
-        }
+      // `{statename}` or `{stateCode}` command
+      // Returns: State wise stats
+      return stateName(body, userMessage, bot, chatId);
+    }
     return true;
-    });
+  });
 });
