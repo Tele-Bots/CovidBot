@@ -206,6 +206,42 @@ function prepareNewDistrictWiseState(body, stateName) {
     return data
 }
 
+function prepareNewTopStatesStat(body) {
+    let statesData = body['statewise'], storeIndex = new Map, sortedData = []
+    for (let index = 0; index < statesData.length; index++) {
+        let currentState = statesData[index]
+        if (parseInt(currentState['deltaconfirmed']) > 0 &&
+            currentState['state'] !== 'State Unassigned' &&
+            currentState['state'] !== 'Total')
+            storeIndex.set(index, parseInt(currentState['deltaconfirmed']))
+
+    }
+    storeIndex[Symbol.iterator] = function* () {
+        yield* [...this.entries()].sort((a, b) => a[1] - b[1]);
+    }
+    for (let [key, value] of storeIndex) { 
+        sortedData.push(key)
+    }
+    let data = '<b>\u{1F4C8}Top States With Most New Confirmed Cases</b>\n'
+    var len
+    if (sortedData.length === 0)
+        return data += '\nNo data for new cases available right now!!'
+    else if (sortedData.length > 15)
+        len = 15
+    else
+        len = sortedData.length
+
+    sortedData.reverse()
+    
+    for (let i = 0; i < len; i++) {
+        let currentState = statesData[sortedData[i]]
+        data += '\n<b>' + currentState['state'] + ': </b>' + 
+        numberWithIndianCommas(currentState['confirmed']) + 
+        ' <i>(+' + numberWithIndianCommas(currentState['deltaconfirmed']) + ')</i>'
+    }
+    return data
+}
+
 module.exports = {
     prepareStatsCompactAnswer,
     prepareAllIndiaCasesTested,
