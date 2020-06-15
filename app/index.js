@@ -6,6 +6,7 @@ const { daily } = require('./commands/daily')
 const { stateName } = require('./commands/stateName')
 const { testingCentres } = require('./commands/testingCentres')
 const { newStates } = require('./commands/new')
+const { newDistrictWiseState } = require('./commands/newState')
 
 let ua = require('universal-analytics');
 require('dotenv').config()
@@ -59,12 +60,19 @@ bot.on('message', (msg) => {
                 const stateUserMessage = testingDefaultPattern.exec(userMessage)[0].split('test ')[1].replace(" & ", " and ")
                 return testingCentres(body, bot, chatId, stateUserMessage)
             }
-            
+
             //'new' command
             if (userMessage === 'new') {
-                return newStates(body,bot,chatId)
+                return newStates(body, bot, chatId)
             }
-            
+
+            //'new state' command
+            const newDistrictPattern = /new ( ?[a-zA-Z&])+/
+            if (newDistrictPattern.test(userMessage)) {
+                const stateUserMessage = newDistrictPattern.exec(userMessage)[0].split('new ')[1].replace(" & ", " and ")
+                return newDistrictWiseState(body, bot, chatId, stateUserMessage)
+            }
+
             // `{statename}` or `{stateCode}` command
             // Returns: State wise stats
             return stateName(body, userMessage, bot, chatId)

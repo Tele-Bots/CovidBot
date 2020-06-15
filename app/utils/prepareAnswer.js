@@ -179,6 +179,35 @@ function prepareNewTopStatesStat(body) {
     return data
 }
 
+function prepareNewDistrictWiseState(body, stateName) {
+    let stateData = body[stateName]
+    let districtData = stateData['districtData']
+    sortedData = []
+    for (let key in districtData) {
+        sortedData.push({ name: key, delta: districtData[key].delta.confirmed ,confirmed: districtData[key].confirmed })
+    }
+    sortedData.sort(function (x, y) { return y.confirmed - x.confirmed })//applied this to display district with
+                                                                         //higher no of cases above other district
+                                                                         //if they both have equal new confirmed cases
+    sortedData.sort(function (x, y) { return y.delta - x.delta })
+
+    let flag = -1
+
+    let data = '\n\n\u{1F4C8} <b>Top districts with most new confirmed cases for ' + stateName + "</b>\n"
+    for (var i = 0; i < sortedData.length; i++) {
+        let eachDistrictData = districtData[sortedData[i].name]
+        let deltaData = eachDistrictData['delta']
+        if (parseInt(deltaData['confirmed']) > 0) {
+            data += '\n<b>' + sortedData[i].name + '</b>: ' + numberWithIndianCommas(eachDistrictData['confirmed'])
+            data += '<i> (+' + numberWithIndianCommas(deltaData['confirmed']) + ') </i>'
+            flag++
+        }
+    }
+    if (flag === -1)
+        data += "\nNo data for district wise new cases available right now !"
+    return data
+}
+
 module.exports = {
     prepareStatsCompactAnswer,
     prepareAllIndiaCasesTested,
@@ -187,5 +216,6 @@ module.exports = {
     prepareDailyStatsAnswer,
     prepareTestingResourceAnswer,
     prepareStateTestStat,
-    prepareNewTopStatesStat
+    prepareNewTopStatesStat,
+    prepareNewDistrictWiseState
 }

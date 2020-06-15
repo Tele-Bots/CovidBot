@@ -12,7 +12,7 @@
 | daily N                 | Gives all india daily changes analysis for past `N` days    | :heavy_check_mark: | `daily 15`     |
 | test State              | Gives all the test centers for Corona in the given state    | :heavy_check_mark: | `test punjab`  |
 | new                     | Gives all the states with sorted new cases                  | :heavy_check_mark: | `new`          |
-| new State               | Gives all the districts with sorted new cases               |   `Coming soon`    | `new punjab`   |
+| new State               | Gives all the districts with sorted new cases               | :heavy_check_mark: | `new punjab`   |
 
 ### Features:
 - [x] No hectic menus. Just send the command and get the stats instantly.
