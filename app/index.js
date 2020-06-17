@@ -7,6 +7,7 @@ const { daily } = require('./commands/daily');
 const { stateName } = require('./commands/stateName');
 const { testingCentres } = require('./commands/testingCentres');
 const { newStates } = require('./commands/new');
+const { newDistrictWiseState } = require('./commands/newState');
 
 require('dotenv').config();
 
@@ -43,9 +44,12 @@ bot.on('message', (msg) => {
       // `daily` command
       // Returns: All india daily
       // changes for all 10 days
-      if (userMessage === 'daily') {
-        return daily(body, bot, chatId);
-      }
+      if (userMessage === 'daily') { return daily(body, bot, chatId); }
+
+      // `new` command
+      // Returns: All india states
+      // with highest cfrmd cases
+      if (userMessage === 'new') { return newStates(body, bot, chatId); }
 
       const dailyPattern = /daily (\d+)/;
       if (dailyPattern.test(userMessage)) {
@@ -53,15 +57,17 @@ bot.on('message', (msg) => {
         return daily(body, bot, chatId, n);
       }
 
-      const testingDefaultPattern = /test ( ?[a-zA-Z&])+/;
-      if (testingDefaultPattern.test(userMessage)) {
-        const stateUserMessage = testingDefaultPattern.exec(userMessage)[0].split('test ')[1].replace(' & ', ' and ');
+      const statePattern = /test ( ?[a-zA-Z&])+/;
+      if (statePattern.test(userMessage)) {
+        const stateUserMessage = statePattern.exec(userMessage)[0].split('test ')[1].replace(' & ', ' and ');
         return testingCentres(body, bot, chatId, stateUserMessage);
       }
 
-      // "new" command
-      if (userMessage === 'new') {
-        return newStates(body, bot, chatId);
+      // 'new state' command
+      const newDistrictPattern = /new ( ?[a-zA-Z&])+/;
+      if (newDistrictPattern.test(userMessage)) {
+        const stateUserMessage = newDistrictPattern.exec(userMessage)[0].split('new ')[1].replace(' & ', ' and ');
+        return newDistrictWiseState(body, bot, chatId, stateUserMessage);
       }
 
       // `{statename}` or `{stateCode}` command

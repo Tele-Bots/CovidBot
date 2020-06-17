@@ -177,6 +177,43 @@ function prepareNewTopStatesStat(body) {
   return data;
 }
 
+function prepareNewDistrictWiseState(body, stateName) {
+  const stateData = body[stateName];
+  const { districtData } = stateData;
+  const sortedData = [];
+  let flag = false;
+
+  // eslint-disable-next-line guard-for-in
+  for (const key in districtData) {
+    if (parseInt(districtData[key].delta.confirmed, 10) > 0) flag = true;
+    sortedData.push({
+      name: key,
+      delta: districtData[key].delta.confirmed,
+      confirmed: districtData[key].confirmed,
+    });
+  }
+  let data = `\n\n\u{1F4C8} <b>Top districts with most new confirmed cases for ${stateName}</b>\n`;
+
+  if (!flag) {
+    data += '\nNo data for district wise new cases available right now !';
+  }
+
+  sortedData.sort((x, y) => y.confirmed - x.confirmed);// applied this to display district with
+  // higher no of cases above other district
+  // if they both have equal new confirmed cases
+  sortedData.sort((x, y) => y.delta - x.delta);
+
+  for (let i = 0; i < sortedData.length; i += 1) {
+    const eachDistrictData = districtData[sortedData[i].name];
+    const deltaData = eachDistrictData.delta;
+    if (parseInt(deltaData.confirmed, 10) > 0) {
+      data += `\n<b>${sortedData[i].name}</b>: ${numberWithIndianCommas(eachDistrictData.confirmed)}`;
+      data += `<i> (+${numberWithIndianCommas(deltaData.confirmed)}) </i>`;
+    }
+  }
+  return data;
+}
+
 module.exports = {
   prepareStatsCompactAnswer,
   prepareAllIndiaCasesTested,
@@ -186,4 +223,5 @@ module.exports = {
   prepareTestingResourceAnswer,
   prepareStateTestStat,
   prepareNewTopStatesStat,
+  prepareNewDistrictWiseState,
 };
