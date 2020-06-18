@@ -196,6 +196,7 @@ function prepareNewDistrictWiseState(body, stateName) {
 
   if (!flag) {
     data += '\nNo data for district wise new cases available right now !';
+    return data;
   }
 
   sortedData.sort((x, y) => y.confirmed - x.confirmed);// applied this to display district with
