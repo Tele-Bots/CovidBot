@@ -33,10 +33,17 @@ function testingCentres(body, bot, chatId, stateUserMessage) {
 
       const data = prepareAnswer.prepareTestingResourceAnswer(stateResources);
 
-      return bot.sendMessage(chatId, data, {
+      return bot.sendMessage(chatId, data[0], {
         parse_mode: 'HTML',
         disable_web_page_preview: true,
-      });
+      }).then(() => {
+        if (data[1].length > 0) {
+          return bot.sendMessage(chatId, data[1], {
+            parse_mode: 'HTML',
+            disable_web_page_preview: true,
+          });
+        }
+      })
     }
     return true;
   });

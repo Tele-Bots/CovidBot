@@ -126,19 +126,33 @@ function prepareDailyStatsAnswer(body, n) {
 
 function prepareTestingResourceAnswer(stateResources) {
   if (stateResources.length === 0) {
-    return '\n\n\u{1F9EA} No COVID-19 Testing Labs found';
+    let temp = ['\n\n\u{1F9EA} No COVID-19 Testing Labs found','']
+    return temp;
   }
 
   let data = `\n\n\u{1F9EA} COVID-19 Testing Labs in ${stateResources[0].state}, found ${stateResources.length} results\n`;
+  let data2 = ``
 
-  stateResources.forEach((stateResource) => {
-    data += `\n<b>${stateResource.nameoftheorganisation}, ${stateResource.city}\n`
-      + `</b>Description: ${stateResource.descriptionandorserviceprovided}.\n`
-      + `<i>Phone Number: ${stateResource.phonenumber}</i>\n`
-      + `<i>Website: ${stateResource.contact}</i>\n`;
-  });
-
-  return data;
+  for (let i = 0; i < stateResources.length; i += 1) {
+    if (i <= 19) {
+      data += `\n<b>${stateResources[i].nameoftheorganisation}, ${stateResources[i].city}\n`
+        + `</b>Description: ${stateResources[i].descriptionandorserviceprovided}.\n`
+      if (stateResources[i].phonenumber.length > 0)
+        data += `<i>Phone Number: ${stateResources[i].phonenumber}</i>\n`
+      if (stateResources[i].contact.length > 0)
+        data += `<i>Website: ${stateResources[i].contact}</i>\n`;
+    }
+    else {
+      data2 += `\n<b>${stateResources[i].nameoftheorganisation}, ${stateResources[i].city}\n`
+        + `</b>Description: ${stateResources[i].descriptionandorserviceprovided}.\n`
+      if (stateResources[i].phonenumber.length > 0)
+        data2 += `<i>Phone Number: ${stateResources[i].phonenumber}</i>\n`
+      if (stateResources[i].contact.length > 0)
+        data2 += `<i>Website: ${stateResources[i].contact}</i>\n`;
+    }
+  }
+  let passData = [data, data2]
+  return passData;
 }
 
 function prepareNewTopStatesStat(body) {
@@ -179,6 +193,8 @@ function prepareNewTopStatesStat(body) {
 
 function prepareNewDistrictWiseState(body, stateName) {
   const stateData = body[stateName];
+  if (stateData === undefined)
+    return `Wrong state code`
   const { districtData } = stateData;
   const sortedData = [];
   let flag = false;
