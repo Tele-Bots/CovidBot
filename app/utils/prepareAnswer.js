@@ -193,8 +193,10 @@ function prepareNewTopStatesStat(body) {
 
 function prepareNewDistrictWiseState(body, stateName) {
   const stateData = body[stateName];
-  if (stateData === undefined)
-    return `Wrong state code`
+  if (stateData === undefined) {
+    const data = '\nNo data for district wise new cases available right now !';
+    return data;
+  }
   const { districtData } = stateData;
   const sortedData = [];
   let flag = false;
