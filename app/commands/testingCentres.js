@@ -43,7 +43,8 @@ function testingCentres(body, bot, chatId, stateUserMessage) {
             disable_web_page_preview: true,
           });
         }
-      })
+        return true;
+      });
     }
     return true;
   });
