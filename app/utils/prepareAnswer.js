@@ -131,17 +131,14 @@ function prepareTestingResourceAnswer(stateResources) {
   }
 
   const data = [`\n\n\u{1F9EA} COVID-19 Testing Labs in ${stateResources[0].state}, found ${stateResources.length} results\n`];
+  let tempData;
 
   for (let i = 0; i < stateResources.length; i += 1) {
-    if (i === 0) {
-      data[i] += `\n<b>${stateResources[i].nameoftheorganisation}, ${stateResources[i].city}\n`
-        + `</b>Description: ${stateResources[i].descriptionandorserviceprovided}.\n`;
-    } else {
-      data[i] = `\n<b>${stateResources[i].nameoftheorganisation}, ${stateResources[i].city}\n`
-        + `</b>Description: ${stateResources[i].descriptionandorserviceprovided}.\n`;
-    }
-    if (stateResources[i].phonenumber.length > 0) { data[i] += `<i>Phone Number: ${stateResources[i].phonenumber}</i>\n`; }
-    if (stateResources[i].contact.length > 0) { data[i] += `<i>Website: ${stateResources[i].contact}</i>\n`; }
+    tempData = `\n<b>${stateResources[i].nameoftheorganisation}, ${stateResources[i].city}\n`
+      + `</b>Description: ${stateResources[i].descriptionandorserviceprovided}.\n`;
+    if (stateResources[i].phonenumber.length > 0) { tempData += `<i>Phone Number: ${stateResources[i].phonenumber}</i>\n`; }
+    if (stateResources[i].contact.length > 0) { tempData += `<i>Website: ${stateResources[i].contact}</i>\n`; }
+    data.push(tempData);
   }
   return data;
 }
