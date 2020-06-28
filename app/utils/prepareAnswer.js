@@ -131,10 +131,9 @@ function prepareTestingResourceAnswer(stateResources) {
   }
 
   const data = [`\n\n\u{1F9EA} COVID-19 Testing Labs in ${stateResources[0].state}, found ${stateResources.length} results\n`];
-  let tempData;
 
   for (let i = 0; i < stateResources.length; i += 1) {
-    tempData = `\n<b>${stateResources[i].nameoftheorganisation}, ${stateResources[i].city}\n`
+    let tempData = `\n<b>${stateResources[i].nameoftheorganisation}, ${stateResources[i].city}\n`
       + `</b>Description: ${stateResources[i].descriptionandorserviceprovided}.\n`;
     if (stateResources[i].phonenumber.length > 0) { tempData += `<i>Phone Number: ${stateResources[i].phonenumber}</i>\n`; }
     if (stateResources[i].contact.length > 0) { tempData += `<i>Website: ${stateResources[i].contact}</i>\n`; }
