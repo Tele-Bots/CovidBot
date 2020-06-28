@@ -126,18 +126,19 @@ function prepareDailyStatsAnswer(body, n) {
 
 function prepareTestingResourceAnswer(stateResources) {
   if (stateResources.length === 0) {
-    return '\n\n\u{1F9EA} No COVID-19 Testing Labs found';
+    const temp = ['\n\n\u{1F9EA} No COVID-19 Testing Labs found'];
+    return temp;
   }
 
-  let data = `\n\n\u{1F9EA} COVID-19 Testing Labs in ${stateResources[0].state}, found ${stateResources.length} results\n`;
+  const data = [`\n\n\u{1F9EA} COVID-19 Testing Labs in ${stateResources[0].state}, found ${stateResources.length} results\n`];
 
-  stateResources.forEach((stateResource) => {
-    data += `\n<b>${stateResource.nameoftheorganisation}, ${stateResource.city}\n`
-      + `</b>Description: ${stateResource.descriptionandorserviceprovided}.\n`
-      + `<i>Phone Number: ${stateResource.phonenumber}</i>\n`
-      + `<i>Website: ${stateResource.contact}</i>\n`;
-  });
-
+  for (let i = 0; i < stateResources.length; i += 1) {
+    let tempData = `\n<b>${stateResources[i].nameoftheorganisation}, ${stateResources[i].city}\n`
+      + `</b>Description: ${stateResources[i].descriptionandorserviceprovided}.\n`;
+    if (stateResources[i].phonenumber.length > 0) { tempData += `<i>Phone Number: ${stateResources[i].phonenumber}</i>\n`; }
+    if (stateResources[i].contact.length > 0) { tempData += `<i>Website: ${stateResources[i].contact}</i>\n`; }
+    data.push(tempData);
+  }
   return data;
 }
 
