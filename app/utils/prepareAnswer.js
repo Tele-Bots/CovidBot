@@ -79,8 +79,11 @@ function prepareStatsDistrictAnswer(body, stateName) {
 
   for (const key in districtData) {
     if (Object.prototype.hasOwnProperty.call(districtData, key)) {
-    // eslint-disable-next-line max-len
-      sortedData.push({ name: key, confirmed: districtData[key].confirmed, delta: districtData[key].delta });
+      sortedData.push({
+        name: key,
+        confirmed: districtData[key].confirmed,
+        delta: districtData[key].delta,
+      });
     }
   }
   sortedData.sort((x, y) => y.confirmed - x.confirmed);
