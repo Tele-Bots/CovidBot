@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-syntax */
 function numberWithIndianCommas(x) {
   let y = x.toString();
   if (y.length > 3) {
@@ -77,15 +76,14 @@ function prepareStatsDistrictAnswer(body, stateName) {
   // access names in sorted order
   const sortedData = [];
 
-  for (const key in districtData) {
-    if (Object.prototype.hasOwnProperty.call(districtData, key)) {
-      sortedData.push({
-        name: key,
-        confirmed: districtData[key].confirmed,
-        delta: districtData[key].delta,
-      });
-    }
-  }
+  Object.keys(districtData).forEach((key) => {
+    sortedData.push({
+      name: key,
+      confirmed: districtData[key].confirmed,
+      delta: districtData[key].delta,
+    });
+  });
+
   sortedData.sort((x, y) => y.confirmed - x.confirmed);
 
   let data = '\n\n\u{1F4C8} District-wise analysis';
@@ -148,20 +146,20 @@ function prepareTestingResourceAnswer(stateResources) {
 }
 
 function prepareNewTopStatesStat(body) {
-  const statesData = body.statewise; const storeIndex = new Map(); const sortedData = [];
+  const statesData = body.statewise; const sortedData = [];
+  let storeIndex = new Map();
   for (let index = 0; index < statesData.length; index += 1) {
     const currentState = statesData[index];
     if (parseInt(currentState.deltaconfirmed, 10) > 0
       && currentState.state !== 'State Unassigned'
       && currentState.state !== 'Total') storeIndex.set(index, parseInt(currentState.deltaconfirmed, 10));
   }
-  storeIndex[Symbol.iterator] = function* sortthis() {
-    yield* [...this.entries()].sort((a, b) => a[1] - b[1]);
-  };
-  // eslint-disable-next-line no-unused-vars
-  for (const [key, value] of storeIndex) {
-    sortedData.push(key);
-  }
+
+  storeIndex = new Map([...storeIndex.entries()].sort((a, b) => b[1] - a[1]));
+
+  const itr = storeIndex.keys();
+  for (let i = 0; i < storeIndex.size; i += 1) sortedData.push(itr.next().value);
+
   let data = '<b>\u{1F4C8}Top States With Most New Confirmed Cases</b>\n';
   let len;
   if (sortedData.length === 0) {
@@ -173,8 +171,6 @@ function prepareNewTopStatesStat(body) {
   } else {
     len = sortedData.length;
   }
-
-  sortedData.reverse();
 
   for (let i = 0; i < len; i += 1) {
     const currentState = statesData[sortedData[i]];
@@ -193,15 +189,15 @@ function prepareNewDistrictWiseState(body, stateName) {
   const sortedData = [];
   let flag = false;
 
-  // eslint-disable-next-line guard-for-in
-  for (const key in districtData) {
+  Object.keys(districtData).forEach((key) => {
     if (parseInt(districtData[key].delta.confirmed, 10) > 0) flag = true;
     sortedData.push({
       name: key,
       delta: districtData[key].delta.confirmed,
       confirmed: districtData[key].confirmed,
     });
-  }
+  });
+
   let data = `\n\n\u{1F4C8} <b>Top districts with most new confirmed cases for ${stateName}</b>\n`;
 
   if (!flag) {
