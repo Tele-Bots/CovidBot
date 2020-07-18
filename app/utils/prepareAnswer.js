@@ -160,7 +160,8 @@ function prepareNewTopStatesStat(body) {
   const itr = storeIndex.keys();
   for (let i = 0; i < storeIndex.size; i += 1) sortedData.push(itr.next().value);
 
-  let data = '<b>\u{1F4C8}Top States With Most New Confirmed Cases</b>\n';
+  let data = `<b>Total New Cases: </b>${numberWithIndianCommas(body.statewise[0].deltaconfirmed)}\n`;
+  data += '\n<b>\u{1F4C8}Top States With Most New Confirmed Cases</b>';
   let len;
   if (sortedData.length === 0) {
     data += '\nNo data for new cases available right now!!';
