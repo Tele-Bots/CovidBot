@@ -20,7 +20,7 @@ const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN, {
   polling: true,
 });
 
-// Listen for any kind of message and reply with the data
+// Main function which recieves the message and acts upon it
 bot.on('message', (msg) => {
   const chatId = msg.chat.id;
 
@@ -31,7 +31,7 @@ bot.on('message', (msg) => {
     }
 
     if (!error && res.statusCode === 200 && msg.text !== undefined) {
-      const userMessage = msg.text.toLowerCase().replace(/[^a-zA-Z0-9& ]/g, '');
+      const userMessage = msg.text.toLowerCase().replace(/[^a-zA-Z0-9& ]/g, ' ');
 
       // `start` command
       // Returns: Welcome message
