@@ -50,7 +50,6 @@ bot.on('message', (msg) => {
       // `daily active` command
       // Returns: All india daily
       // active changes for past 10 days
-      console.log(userMessage)
       if (userMessage === 'daily active') { return dailyActive(body, bot, chatId); }
 
       // `new` command
