@@ -1,12 +1,18 @@
 function numberWithIndianCommas(x) {
   let y = x.toString();
+  let polarity;
+  if (y[0] === '-') {
+    polarity = '-';
+    y = y.slice(1);
+  } else { polarity = ''; }
+
   if (y.length > 3) {
     const z = y.substr(y.length - 3, 3);
     y = y.substr(0, y.length - 3);
     y = y.replace(/\B(?=(\d{2})+(?!\d))/g, ',');
-    return `${y},${z}`;
+    return `${polarity}${y},${z}`;
   }
-  return y;
+  return `${polarity}${y}`;
 }
 
 function prepareStatsCompactAnswer(body, index, nameState) {
