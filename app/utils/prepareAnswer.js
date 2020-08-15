@@ -1,12 +1,18 @@
 function numberWithIndianCommas(x) {
   let y = x.toString();
+  let polarity;
+  if (y[0] === '-') {
+    polarity = '-';
+    y = y.slice(1);
+  } else { polarity = ''; }
+
   if (y.length > 3) {
     const z = y.substr(y.length - 3, 3);
     y = y.substr(0, y.length - 3);
     y = y.replace(/\B(?=(\d{2})+(?!\d))/g, ',');
-    return `${y},${z}`;
+    return `${polarity}${y},${z}`;
   }
-  return y;
+  return `${polarity}${y}`;
 }
 
 function prepareStatsCompactAnswer(body, index, nameState) {
@@ -127,6 +133,19 @@ function prepareDailyStatsAnswer(body, n) {
   return data;
 }
 
+function prepareDailyActiveAnswer(body, n) {
+  const dailyData = body.cases_time_series;
+  const minN = Math.min(n, dailyData.length);
+  let data = `\n\n\u{1F55C} Daily new active cases analysis for past ${minN} days (<i>All India</i>)\n`;
+  dailyData.reverse();
+  for (let i = 0; i < minN; i += 1) {
+    let { date } = dailyData[i];
+    date = date.substring(0, date.length - 1);
+    data += `\n<b>${date}</b>: ${numberWithIndianCommas(dailyData[i].dailyconfirmed - dailyData[i].dailydeceased - dailyData[i].dailyrecovered)} new active cases.`;
+  }
+  return data;
+}
+
 function prepareTestingResourceAnswer(stateResources) {
   if (stateResources.length === 0) {
     const temp = ['\n\n\u{1F9EA} No COVID-19 Testing Labs found'];
@@ -228,6 +247,7 @@ module.exports = {
   prepareStatsStateAnswer,
   prepareStatsDistrictAnswer,
   prepareDailyStatsAnswer,
+  prepareDailyActiveAnswer,
   prepareTestingResourceAnswer,
   prepareStateTestStat,
   prepareNewTopStatesStat,
