@@ -241,6 +241,25 @@ function prepareNewDistrictWiseState(body, stateName) {
   return data;
 }
 
+function dailyStatsGraph(body, n) {
+  const dailyData = body.cases_time_series;
+  const minN = Math.min(n, dailyData.length);
+  const data = []; const
+    dateLabel = [];
+  dailyData.reverse();
+  for (let i = 0; i < minN; i += 1) {
+    data.push(dailyData[i].dailyconfirmed);
+    dateLabel.push(`'${dailyData[i].date}'`);
+  }
+  data.reverse();
+  dateLabel.reverse();
+
+  let link = `https://quickchart.io/chart?c={type:'bar',data:{labels:[${dateLabel}],`;
+  link += `datasets:[{label:'Daily new cases',data:[${data}],backgroundColor:'rgb(108, 212, 255)',datalabels: {color: 'black'}}]}}`;
+
+  return link;
+}
+
 module.exports = {
   prepareStatsCompactAnswer,
   prepareAllIndiaCasesTested,
@@ -252,4 +271,5 @@ module.exports = {
   prepareStateTestStat,
   prepareNewTopStatesStat,
   prepareNewDistrictWiseState,
+  dailyStatsGraph,
 };
