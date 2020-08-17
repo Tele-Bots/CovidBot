@@ -244,8 +244,8 @@ function prepareNewDistrictWiseState(body, stateName) {
 function dailyStatsGraph(body, n) {
   const dailyData = body.cases_time_series;
   const minN = Math.min(n, dailyData.length);
-  const data = []; const
-    dateLabel = [];
+  const data = [];
+  const dateLabel = [];
   dailyData.reverse();
   for (let i = 0; i < minN; i += 1) {
     data.push(dailyData[i].dailyconfirmed);
