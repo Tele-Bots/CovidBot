@@ -254,8 +254,8 @@ function dailyStatsGraph(body, n) {
   data.reverse();
   dateLabel.reverse();
 
-  let link = `https://quickchart.io/chart?c={type:'bar',data:{labels:[${dateLabel}],`;
-  link += `datasets:[{label:'Daily new cases',data:[${data}],backgroundColor:'rgb(108, 212, 255)',datalabels: {color: 'black'}}]}}`;
+  let link = `https://quickchart.io/chart?c={type:'line',data:{labels:[${dateLabel}],`;
+  link += `datasets:[{label:'Daily new cases',data:[${data}],backgroundColor:'white', fill:false, borderColor:'red'}]}}`;
 
   return link;
 }
