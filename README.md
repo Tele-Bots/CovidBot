@@ -14,6 +14,7 @@
 | g daily N           |       Daily graphical analysis for past `N` days          | :heavy_check_mark: |      `g daily 15` |
 | daily active        |       Daily active cases analysis for past 10 days        | :heavy_check_mark: |    `daily active` |
 | daily active N      |       Daily active cases analysis for past `N` days       | :heavy_check_mark: | `daily active 15` |
+| daily rec           |      Daily recovered cases analysis for past 10 days      | :heavy_check_mark: |       `daily rec` |
 | test State          |        Test centers for Corona in the given state         | :heavy_check_mark: |     `test punjab` |
 | new                 |           All the states with sorted new cases            | :heavy_check_mark: |             `new` |
 | new State           |          All the districts with sorted new cases          | :heavy_check_mark: |      `new punjab` |

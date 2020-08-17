@@ -5,6 +5,7 @@ const { start } = require('./commands/start');
 const { all } = require('./commands/all');
 const { daily } = require('./commands/daily');
 const { dailyActive } = require('./commands/dailyActive');
+const { dailyRecovered } = require('./commands/dailyRecovered');
 const { stateName } = require('./commands/stateName');
 const { testingCentres } = require('./commands/testingCentres');
 const { newStates } = require('./commands/new');
@@ -55,6 +56,11 @@ bot.on('message', (msg) => {
       // Returns: All india daily
       // active changes for past 10 days
       if (userMessage === 'daily active') { return dailyActive(body, bot, chatId); }
+
+      // `daily active` command
+      // Returns: All india daily
+      // active changes for past 10 days
+      if (userMessage === 'daily rec') { return dailyRecovered(body, bot, chatId); }
 
       // `new` command
       // Returns: All india states
