@@ -9,6 +9,7 @@ const { stateName } = require('./commands/stateName');
 const { testingCentres } = require('./commands/testingCentres');
 const { newStates } = require('./commands/new');
 const { newDistrictWiseState } = require('./commands/newState');
+const { dailyGraph } = require('./commands/dailyGraph');
 
 require('dotenv').config();
 
@@ -96,6 +97,11 @@ bot.on('message', (msg) => {
         const stateUserMessage = newDistrictPattern.exec(userMessage)[0].split('new ')[1].replace(' & ', ' and ');
         return newDistrictWiseState(body, bot, chatId, stateUserMessage);
       }
+
+      // `g daily` command
+      // Returns: All india daily graph
+      // changes for past 10 days
+      if (userMessage === 'g daily') { return dailyGraph(body, bot, chatId); }
 
       // `statename` or `stateCode` command
       // Returns: State wise stats
