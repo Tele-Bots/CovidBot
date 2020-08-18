@@ -73,7 +73,7 @@ bot.on('message', (msg) => {
       // `daily N` command
       // Returns: All india daily
       // changes for past N days
-      const dailyPattern = /daily (\d+)/;
+      const dailyPattern = /^daily (\d+)/;
       if (dailyPattern.test(userMessage)) {
         const n = dailyPattern.exec(userMessage)[1];
         return daily(body, bot, chatId, n);
@@ -102,6 +102,15 @@ bot.on('message', (msg) => {
       // Returns: All india daily graph
       // changes for past 10 days
       if (userMessage === 'g daily') { return dailyGraph(body, bot, chatId); }
+
+      // `g daily N` command
+      // Returns: All india daily graph
+      // changes for past N days
+      const dailyGraphPattern = /g daily (\d+)/;
+      if (dailyGraphPattern.test(userMessage)) {
+        const n = dailyGraphPattern.exec(userMessage)[1];
+        return dailyGraph(body, bot, chatId, n);
+      }
 
       // `statename` or `stateCode` command
       // Returns: State wise stats
