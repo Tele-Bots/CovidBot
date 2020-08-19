@@ -5,6 +5,7 @@ const { start } = require('./commands/start');
 const { all } = require('./commands/all');
 const { daily } = require('./commands/daily');
 const { dailyActive } = require('./commands/dailyActive');
+const { dailyRecovered } = require('./commands/dailyRecovered');
 const { stateName } = require('./commands/stateName');
 const { testingCentres } = require('./commands/testingCentres');
 const { newStates } = require('./commands/new');
@@ -56,6 +57,11 @@ bot.on('message', (msg) => {
       // active changes for past 10 days
       if (userMessage === 'daily active') { return dailyActive(body, bot, chatId); }
 
+      // `daily rec` command
+      // Returns: All india daily
+      // recovery changes for past 10 days
+      if (userMessage === 'daily rec') { return dailyRecovered(body, bot, chatId); }
+
       // `new` command
       // Returns: All india states
       // with highest cfrmd cases
@@ -68,6 +74,15 @@ bot.on('message', (msg) => {
       if (dailyActivePattern.test(userMessage)) {
         const n = dailyActivePattern.exec(userMessage)[1];
         return dailyActive(body, bot, chatId, n);
+      }
+
+      // `daily rec N` command
+      // Returns: All india daily
+      // recovery changes for past N days
+      const dailyRecPattern = /daily rec (\d+)/;
+      if (dailyRecPattern.test(userMessage)) {
+        const n = dailyRecPattern.exec(userMessage)[1];
+        return dailyRecovered(body, bot, chatId, n);
       }
 
       // `daily N` command
