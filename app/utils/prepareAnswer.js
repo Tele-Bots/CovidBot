@@ -273,6 +273,27 @@ function dailyStatsGraph(body, n) {
   return link;
 }
 
+function dailyActiveStatsGraph(body, n) {
+  const dailyData = body.cases_time_series;
+  const minN = Math.min(n, dailyData.length);
+  const data = [];
+  const dateLabel = [];
+  dailyData.reverse();
+  for (let i = 0; i < minN; i += 1) {
+    data.push(
+      dailyData[i].dailyconfirmed - dailyData[i].dailydeceased - dailyData[i].dailyrecovered,
+    );
+    dateLabel.push(`'${dailyData[i].date}'`);
+  }
+  data.reverse();
+  dateLabel.reverse();
+
+  let link = `https://quickchart.io/chart?c={type:'line',data:{labels:[${dateLabel}],`;
+  link += `datasets:[{label:'Daily new cases',data:[${data}],backgroundColor:'white', fill:false, borderColor:'blue'}]}}`;
+
+  return link;
+}
+
 module.exports = {
   prepareStatsCompactAnswer,
   prepareAllIndiaCasesTested,
@@ -286,4 +307,5 @@ module.exports = {
   prepareNewTopStatesStat,
   prepareNewDistrictWiseState,
   dailyStatsGraph,
+  dailyActiveStatsGraph,
 };
