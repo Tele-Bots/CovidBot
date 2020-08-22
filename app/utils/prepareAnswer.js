@@ -289,7 +289,7 @@ function dailyActiveStatsGraph(body, n) {
   dateLabel.reverse();
 
   let link = `https://quickchart.io/chart?c={type:'line',data:{labels:[${dateLabel}],`;
-  link += `datasets:[{label:'Daily new cases',data:[${data}],backgroundColor:'white', fill:false, borderColor:'blue'}]}}`;
+  link += `datasets:[{label:'Daily new active cases',data:[${data}],backgroundColor:'white', fill:false, borderColor:'blue'}]}}`;
 
   return link;
 }
