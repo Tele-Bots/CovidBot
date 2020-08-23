@@ -12,6 +12,7 @@ const { newStates } = require('./commands/new');
 const { newDistrictWiseState } = require('./commands/newState');
 const { dailyGraph } = require('./commands/dailyGraph');
 const { dailyActiveGraph } = require('./commands/dailyActiveGraph');
+const { dailyDeceased } = require('./commands/dailyDeceased');
 
 require('dotenv').config();
 
@@ -63,6 +64,11 @@ bot.on('message', (msg) => {
       // recovery changes for past 10 days
       if (userMessage === 'daily rec') { return dailyRecovered(body, bot, chatId); }
 
+      // `daily dec` command
+      // Returns: All india daily
+      // deceased changes for past 10 days
+      if (userMessage === 'daily dec') { return dailyDeceased(body, bot, chatId); }
+
       // `new` command
       // Returns: All india states
       // with highest cfrmd cases
@@ -84,6 +90,15 @@ bot.on('message', (msg) => {
       if (dailyRecPattern.test(userMessage)) {
         const n = dailyRecPattern.exec(userMessage)[1];
         return dailyRecovered(body, bot, chatId, n);
+      }
+
+      // `daily dec N` command
+      // Returns: All india daily
+      // deceased changes for past N days
+      const dailyDecPattern = /daily dec (\d+)/;
+      if (dailyDecPattern.test(userMessage)) {
+        const n = dailyDecPattern.exec(userMessage)[1];
+        return dailyDeceased(body, bot, chatId, n);
       }
 
       // `daily N` command
