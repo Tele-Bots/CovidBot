@@ -4,20 +4,23 @@
 
 <p align="center"><img src="https://user-images.githubusercontent.com/30543444/81913483-a9655680-95ed-11ea-9b32-b89598fc9f88.png" align="center" width="400"></p>
   
-| Command             |                        Description                        |       Status       |           Example |
-| ------------------- | :-------------------------------------------------------: | :----------------: | ----------------: |
-| StateName/StateCode |         State data/ District-wise sorted analysis         | :heavy_check_mark: |     `Punjab`,`pb` |
-| all                 |      All India stats/ Top 15 states with most cases       | :heavy_check_mark: |             `all` |
-| daily               |      Daily confirmed cases analysis for past 10 days      | :heavy_check_mark: |           `daily` |
-| g daily             | Daily graphical confirmed cases analysis for past 10 days | :heavy_check_mark: |         `g daily` |
-| daily N             |         Daily changes analysis for past `N` days          | :heavy_check_mark: |        `daily 15` |
-| g daily N           |       Daily graphical analysis for past `N` days          | :heavy_check_mark: |      `g daily 15` |
-| daily active        |       Daily active cases analysis for past 10 days        | :heavy_check_mark: |    `daily active` |
-| daily active N      |       Daily active cases analysis for past `N` days       | :heavy_check_mark: | `daily active 15` |
-| daily rec           |      Daily recovered cases analysis for past 10 days      | :heavy_check_mark: |       `daily rec` |
-| test State          |        Test centers for Corona in the given state         | :heavy_check_mark: |     `test punjab` |
-| new                 |           All the states with sorted new cases            | :heavy_check_mark: |             `new` |
-| new State           |          All the districts with sorted new cases          | :heavy_check_mark: |      `new punjab` |
+| Command             |                        Description                        |       Status       |       Example       |
+| ------------------- | :-------------------------------------------------------: | :----------------: | ------------------: |
+| StateName/StateCode |         State data/ District-wise sorted analysis         | :heavy_check_mark: |       `Punjab`,`pb` |
+| all                 |      All India stats/ Top 15 states with most cases       | :heavy_check_mark: |               `all` |
+| daily               |      Daily confirmed cases analysis for past 10 days      | :heavy_check_mark: |             `daily` |
+| g daily             | Daily graphical confirmed cases analysis for past 10 days | :heavy_check_mark: |           `g daily` |
+| daily N             |         Daily changes analysis for past `N` days          | :heavy_check_mark: |          `daily 15` |
+| g daily N           |       Daily graphical analysis for past `N` days          | :heavy_check_mark: |        `g daily 15` |
+| daily active        |       Daily active cases analysis for past 10 days        | :heavy_check_mark: |      `daily active` |
+| g daily active      |   Daily active cases graphical analysis for past 10 days  | :heavy_check_mark: |    `g daily active` |
+| daily active N      |       Daily active cases analysis for past `N` days       | :heavy_check_mark: |   `daily active 15` |
+| g daily active N    |   Daily active cases graphical analysis for past `N` days | :heavy_check_mark: | `g daily active 15` |
+| daily rec           |      Daily recovered cases analysis for past 10 days      | :heavy_check_mark: |         `daily rec` |
+| daily rec N         |      Daily recovered cases analysis for past `N` days     | :heavy_check_mark: |      `daily rec 15` |
+| test State          |        Test centers for Corona in the given state         | :heavy_check_mark: |       `test punjab` |
+| new                 |           All the states with sorted new cases            | :heavy_check_mark: |               `new` |
+| new State           |          All the districts with sorted new cases          | :heavy_check_mark: |        `new punjab` |
 
 ### Features:
 - [x] No hectic menus. Just send the command and get the stats instantly.
