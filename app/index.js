@@ -11,6 +11,7 @@ const { testingCentres } = require('./commands/testingCentres');
 const { newStates } = require('./commands/new');
 const { newDistrictWiseState } = require('./commands/newState');
 const { dailyGraph } = require('./commands/dailyGraph');
+const { dailyActiveGraph } = require('./commands/dailyActiveGraph');
 
 require('dotenv').config();
 
@@ -70,7 +71,7 @@ bot.on('message', (msg) => {
       // `daily active N` command
       // Returns: All india daily
       // active changes for past N days
-      const dailyActivePattern = /daily active (\d+)/;
+      const dailyActivePattern = /^daily active (\d+)/;
       if (dailyActivePattern.test(userMessage)) {
         const n = dailyActivePattern.exec(userMessage)[1];
         return dailyActive(body, bot, chatId, n);
@@ -125,6 +126,20 @@ bot.on('message', (msg) => {
       if (dailyGraphPattern.test(userMessage)) {
         const n = dailyGraphPattern.exec(userMessage)[1];
         return dailyGraph(body, bot, chatId, n);
+      }
+
+      // `g daily active` command
+      // Returns: All india daily active graph
+      // changes for past 10 days
+      if (userMessage === 'g daily active') { return dailyActiveGraph(body, bot, chatId); }
+
+      // `g daily active N` command
+      // Returns: All india daily active graph
+      // changes for past N days
+      const dailyActiveGraphPattern = /g daily active (\d+)/;
+      if (dailyActiveGraphPattern.test(userMessage)) {
+        const n = dailyActiveGraphPattern.exec(userMessage)[1];
+        return dailyActiveGraph(body, bot, chatId, n);
       }
 
       // `statename` or `stateCode` command
