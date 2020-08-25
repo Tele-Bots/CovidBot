@@ -13,7 +13,7 @@ const { newDistrictWiseState } = require('./commands/newState');
 const { dailyGraph } = require('./commands/dailyGraph');
 const { dailyActiveGraph } = require('./commands/dailyActiveGraph');
 const { dailyDeceased } = require('./commands/dailyDeceased');
-const { dailyRecGraph } = require('./commands/dailyRecGraph');
+const { dailyRecGraph } = require('./commands/dailyRecoveredGraph');
 
 require('dotenv').config();
 
