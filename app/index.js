@@ -13,6 +13,7 @@ const { newDistrictWiseState } = require('./commands/newState');
 const { dailyGraph } = require('./commands/dailyGraph');
 const { dailyActiveGraph } = require('./commands/dailyActiveGraph');
 const { dailyDeceased } = require('./commands/dailyDeceased');
+const { dailyRecGraph } = require('./commands/dailyRecoveredGraph');
 
 require('dotenv').config();
 
@@ -86,7 +87,7 @@ bot.on('message', (msg) => {
       // `daily rec N` command
       // Returns: All india daily
       // recovery changes for past N days
-      const dailyRecPattern = /daily rec (\d+)/;
+      const dailyRecPattern = /^daily rec (\d+)/;
       if (dailyRecPattern.test(userMessage)) {
         const n = dailyRecPattern.exec(userMessage)[1];
         return dailyRecovered(body, bot, chatId, n);
@@ -155,6 +156,20 @@ bot.on('message', (msg) => {
       if (dailyActiveGraphPattern.test(userMessage)) {
         const n = dailyActiveGraphPattern.exec(userMessage)[1];
         return dailyActiveGraph(body, bot, chatId, n);
+      }
+
+      // `g daily rec` command
+      // Returns: All india daily recovered graph
+      // changes for past 10 days
+      if (userMessage === 'g daily rec') { return dailyRecGraph(body, bot, chatId); }
+
+      // `g daily rec N` command
+      // Returns: All india daily recovered graph
+      // changes for past N days
+      const dailyRecGraphPattern = /g daily rec (\d+)/;
+      if (dailyRecGraphPattern.test(userMessage)) {
+        const n = dailyRecGraphPattern.exec(userMessage)[1];
+        return dailyRecGraph(body, bot, chatId, n);
       }
 
       // `statename` or `stateCode` command
