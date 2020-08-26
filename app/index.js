@@ -175,7 +175,7 @@ bot.on('message', (msg) => {
 
       // `graph` command
       // Returns: All india daily graph
-      // summary for past N days
+      // summary for past 10 days
       if (userMessage === 'graph') {
         return graph(body, bot, chatId);
       }
