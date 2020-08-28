@@ -180,7 +180,7 @@ bot.on('message', (msg) => {
         return graph(body, bot, chatId);
       }
 
-      // `graph` command
+      // `graph N` command
       // Returns: All india daily graph
       // summary for past N days
       const graphPattern = /graph (\d+)/;
