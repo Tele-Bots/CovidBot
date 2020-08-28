@@ -326,6 +326,36 @@ function dailyRecStatsGraph(body, n) {
   return link;
 }
 
+function summaryGraph(body, n) {
+  const dailyData = body.cases_time_series;
+  const minN = Math.min(n, dailyData.length);
+  const confirmed = []; const active = []; const recovered = []; const
+    deaths = [];
+  const dateLabel = [];
+  dailyData.reverse();
+  for (let i = 0; i < minN; i += 1) {
+    confirmed.push(dailyData[i].dailyconfirmed);
+    recovered.push(dailyData[i].dailyrecovered);
+    deaths.push(dailyData[i].dailydeceased);
+    active.push(
+      dailyData[i].dailyconfirmed - dailyData[i].dailydeceased - dailyData[i].dailyrecovered,
+    );
+    dateLabel.push(`'${dailyData[i].date}'`);
+  }
+  confirmed.reverse();
+  recovered.reverse();
+  deaths.reverse();
+  active.reverse();
+  dateLabel.reverse();
+
+  let link = `https://quickchart.io/chart?c={type:'line',data:{labels:[${dateLabel}],`;
+  link += `datasets:[{label:'Confirmed',data:[${confirmed}],backgroundColor:'white', fill:false, borderColor:'red'},`;
+  link += `{label:'Active',data:[${active}],backgroundColor:'white', fill:false, borderColor:'blue'},`;
+  link += `{label:'Recovered',data:[${recovered}],backgroundColor:'white', fill:false, borderColor:'green'},`;
+  link += `{label:'Deceased',data:[${deaths}],backgroundColor:'white', fill:false, borderColor:'grey'}]}}`;
+  return link;
+}
+
 module.exports = {
   prepareStatsCompactAnswer,
   prepareAllIndiaCasesTested,
@@ -342,4 +372,5 @@ module.exports = {
   dailyActiveStatsGraph,
   prepareDailyDeceasedAnswer,
   dailyRecStatsGraph,
+  summaryGraph,
 };

@@ -14,6 +14,7 @@ const { dailyGraph } = require('./commands/dailyGraph');
 const { dailyActiveGraph } = require('./commands/dailyActiveGraph');
 const { dailyDeceased } = require('./commands/dailyDeceased');
 const { dailyRecGraph } = require('./commands/dailyRecoveredGraph');
+const { graph } = require('./commands/graph');
 
 require('dotenv').config();
 
@@ -170,6 +171,22 @@ bot.on('message', (msg) => {
       if (dailyRecGraphPattern.test(userMessage)) {
         const n = dailyRecGraphPattern.exec(userMessage)[1];
         return dailyRecGraph(body, bot, chatId, n);
+      }
+
+      // `graph` command
+      // Returns: All india daily graph
+      // summary for past 10 days
+      if (userMessage === 'graph') {
+        return graph(body, bot, chatId);
+      }
+
+      // `graph N` command
+      // Returns: All india daily graph
+      // summary for past N days
+      const graphPattern = /graph (\d+)/;
+      if (graphPattern.test(userMessage)) {
+        const n = graphPattern.exec(userMessage)[1];
+        return graph(body, bot, chatId, n);
       }
 
       // `statename` or `stateCode` command
