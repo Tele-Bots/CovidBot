@@ -21,7 +21,9 @@
 | daily rec N         |      Daily recovered cases analysis for past `N` days     | :heavy_check_mark: |      `daily rec 15` |
 | g daily rec N       | Daily recovered cases graphical analysis for past `N` days| :heavy_check_mark: |    `g daily rec 15` |
 | daily dec           |      Daily deceased cases analysis for past 10 days       | :heavy_check_mark: |         `daily dec` |
+| g daily dec         |  Daily deceased cases graphical analysis for past 10 days | :heavy_check_mark: |       `g daily dec` |
 | daily dec N         |      Daily deceased cases analysis for past `N` days      | :heavy_check_mark: |      `daily dec 15` |
+| g daily dec N       | Daily deceased cases graphical analysis for past `N` days | :heavy_check_mark: |    `g daily dec 15` |
 | graph               |       Daily cases graphical summary for past 10 days      | :heavy_check_mark: |             `graph` |
 | graph N             |       Daily cases graphical summary for past `N` days     | :heavy_check_mark: |          `graph 15` |
 | test State          |        Test centers for Corona in the given state         | :heavy_check_mark: |       `test punjab` |
