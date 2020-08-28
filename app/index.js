@@ -180,6 +180,15 @@ bot.on('message', (msg) => {
         return graph(body, bot, chatId);
       }
 
+      // `graph` command
+      // Returns: All india daily graph
+      // summary for past N days
+      const graphPattern = /graph (\d+)/;
+      if (graphPattern.test(userMessage)) {
+        const n = graphPattern.exec(userMessage)[1];
+        return graph(body, bot, chatId, n);
+      }
+
       // `statename` or `stateCode` command
       // Returns: State wise stats
       return stateName(body, userMessage, bot, chatId);
