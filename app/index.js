@@ -15,6 +15,7 @@ const { dailyActiveGraph } = require('./commands/dailyActiveGraph');
 const { dailyDeceased } = require('./commands/dailyDeceased');
 const { dailyRecGraph } = require('./commands/dailyRecoveredGraph');
 const { graph } = require('./commands/graph');
+const { dailyDecGraph } = require('./commands/dailyDeceasedGraph');
 
 require('dotenv').config();
 
@@ -97,7 +98,7 @@ bot.on('message', (msg) => {
       // `daily dec N` command
       // Returns: All india daily
       // deceased changes for past N days
-      const dailyDecPattern = /daily dec (\d+)/;
+      const dailyDecPattern = /^daily dec (\d+)/;
       if (dailyDecPattern.test(userMessage)) {
         const n = dailyDecPattern.exec(userMessage)[1];
         return dailyDeceased(body, bot, chatId, n);
@@ -171,6 +172,20 @@ bot.on('message', (msg) => {
       if (dailyRecGraphPattern.test(userMessage)) {
         const n = dailyRecGraphPattern.exec(userMessage)[1];
         return dailyRecGraph(body, bot, chatId, n);
+      }
+
+      // `g daily dec` command
+      // Returns: All india daily deceased graph
+      // changes for past 10 days
+      if (userMessage === 'g daily dec') { return dailyDecGraph(body, bot, chatId); }
+
+      // `g daily dec N` command
+      // Returns: All india daily deceased graph
+      // changes for past N days
+      const dailyDecGraphPattern = /g daily dec (\d+)/;
+      if (dailyDecGraphPattern.test(userMessage)) {
+        const n = dailyDecGraphPattern.exec(userMessage)[1];
+        return dailyDecGraph(body, bot, chatId, n);
       }
 
       // `graph` command
