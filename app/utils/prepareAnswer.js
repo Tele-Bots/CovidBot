@@ -326,6 +326,25 @@ function dailyRecStatsGraph(body, n) {
   return link;
 }
 
+function dailyDecStatsGraph(body, n) {
+  const dailyData = body.cases_time_series;
+  const minN = Math.min(n, dailyData.length);
+  const data = [];
+  const dateLabel = [];
+  dailyData.reverse();
+  for (let i = 0; i < minN; i += 1) {
+    data.push(dailyData[i].dailydeceased);
+    dateLabel.push(`'${dailyData[i].date}'`);
+  }
+  data.reverse();
+  dateLabel.reverse();
+
+  let link = `https://quickchart.io/chart?c={type:'line',data:{labels:[${dateLabel}],`;
+  link += `datasets:[{label:'Daily new deceased cases',data:[${data}],backgroundColor:'white', fill:false, borderColor:'grey'}]}}`;
+
+  return link;
+}
+
 function summaryGraph(body, n) {
   const dailyData = body.cases_time_series;
   const minN = Math.min(n, dailyData.length);
@@ -373,4 +392,5 @@ module.exports = {
   prepareDailyDeceasedAnswer,
   dailyRecStatsGraph,
   summaryGraph,
+  dailyDecStatsGraph,
 };
