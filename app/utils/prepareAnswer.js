@@ -282,7 +282,7 @@ function dailyStatsGraph(body, n) {
 
   let link = `https://quickchart.io/chart?c={type:'line',data:{labels:[${dateLabel}],`;
   link += `datasets:[{label:'Daily new cases',data:[${data}],backgroundColor:'white', fill:false, borderColor:'red'}]},`;
-  link += `options: {title:{display: true,text: 'Daily confirmed cases graphical analysis for past ${minN} days'},}}`;
+  link += `options: {title:{display: true,text: 'Daily confirmed cases analysis for past ${minN} days'},}}`;
   return link;
 }
 
@@ -303,7 +303,7 @@ function dailyActiveStatsGraph(body, n) {
 
   let link = `https://quickchart.io/chart?c={type:'line',data:{labels:[${dateLabel}],`;
   link += `datasets:[{label:'Daily new active cases',data:[${data}],backgroundColor:'white', fill:false, borderColor:'blue'}]},`;
-  link += `options: {title:{display: true,text: 'Daily active cases graphical analysis for past ${minN} days'},}}`;
+  link += `options: {title:{display: true,text: 'Daily active cases analysis for past ${minN} days'},}}`;
   return link;
 }
 
@@ -322,7 +322,7 @@ function dailyRecStatsGraph(body, n) {
 
   let link = `https://quickchart.io/chart?c={type:'line',data:{labels:[${dateLabel}],`;
   link += `datasets:[{label:'Daily new recovered cases',data:[${data}],backgroundColor:'white', fill:false, borderColor:'green'}]},`;
-  link += `options: {title:{display: true,text: 'Daily recovered cases graphical analysis for past ${minN} days'},}}`;
+  link += `options: {title:{display: true,text: 'Daily recovered cases analysis for past ${minN} days'},}}`;
 
   return link;
 }
@@ -342,7 +342,7 @@ function dailyDecStatsGraph(body, n) {
 
   let link = `https://quickchart.io/chart?c={type:'line',data:{labels:[${dateLabel}],`;
   link += `datasets:[{label:'Daily new deceased cases',data:[${data}],backgroundColor:'white', fill:false, borderColor:'grey'}]},`;
-  link += `options: {title:{display: true,text: 'Daily deceased cases graphical analysis for past ${minN} days'},}}`;
+  link += `options: {title:{display: true,text: 'Daily deceased cases analysis for past ${minN} days'},}}`;
 
   return link;
 }
@@ -374,7 +374,7 @@ function summaryGraph(body, n) {
   link += `{label:'Active',data:[${active}],backgroundColor:'white', fill:false, borderColor:'blue'},`;
   link += `{label:'Recovered',data:[${recovered}],backgroundColor:'white', fill:false, borderColor:'green'},`;
   link += `{label:'Deceased',data:[${deaths}],backgroundColor:'white', fill:false, borderColor:'grey'}]},`;
-  link += `options: {title:{display: true,text: 'Daily cases graphical analysis for past ${minN} days'},}}`;
+  link += `options: {title:{display: true,text: 'Daily cases analysis for past ${minN} days'},}}`;
   return link;
 }
 
