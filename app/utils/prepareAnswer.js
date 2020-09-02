@@ -349,7 +349,8 @@ function dailyDecStatsGraph(body, n) {
 
 function summaryGraph(body, n) {
   const dailyData = body.cases_time_series;
-  const minN = Math.min(n, dailyData.length);
+  // const minN = Math.min(n, dailyData.length); undo this once link shortner is ready
+  const minN = Math.min(n, 150);
   const confirmed = []; const active = []; const recovered = []; const
     deaths = [];
   const dateLabel = [];
