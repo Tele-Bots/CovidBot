@@ -397,8 +397,10 @@ async function summaryGraph(body, n) {
         },
       },
     }).setDevicePixelRatio(2);
-    
-    return await myChart.getShortUrl();
+
+  const url = await myChart.getShortUrl();
+
+  return url;
 }
 
 module.exports = {
