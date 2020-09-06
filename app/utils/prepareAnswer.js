@@ -1,3 +1,5 @@
+const QuickChart = require('quickchart-js');
+
 function numberWithIndianCommas(x) {
   let y = x.toString();
   let polarity;
@@ -347,9 +349,7 @@ function dailyDecStatsGraph(body, n) {
   return link;
 }
 
-const QuickChart = require('quickchart-js');
-
-function summaryGraph(body, n, chatId, bot) {
+async function summaryGraph(body, n) {
   const dailyData = body.cases_time_series;
   const minN = Math.min(n, dailyData.length);
   const confirmed = []; const active = []; const recovered = []; const
@@ -397,12 +397,8 @@ function summaryGraph(body, n, chatId, bot) {
         },
       },
     }).setDevicePixelRatio(2);
-
-  async function gaphWithShortUrl() {
-    const url = await myChart.getShortUrl();
-    bot.sendPhoto(chatId, url);
-  }
-  gaphWithShortUrl();
+    
+    return await myChart.getShortUrl();
 }
 
 module.exports = {

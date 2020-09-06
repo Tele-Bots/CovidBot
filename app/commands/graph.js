@@ -1,9 +1,9 @@
 const prepareAnswer = require('../utils/prepareAnswer');
 
-function graph(body, bot, chatId, n = 10) {
-  prepareAnswer.summaryGraph(body, n, chatId, bot);
+async function graph(body, bot, chatId, n = 10) {
+  const data = await prepareAnswer.summaryGraph(body, n);
 
-  return true;
+  return bot.sendPhoto(chatId, data);;
 }
 
 module.exports = {
