@@ -1,3 +1,5 @@
+const QuickChart = require('quickchart-js');
+
 function numberWithIndianCommas(x) {
   let y = x.toString();
   let polarity;
@@ -347,10 +349,9 @@ function dailyDecStatsGraph(body, n) {
   return link;
 }
 
-function summaryGraph(body, n) {
+async function summaryGraph(body, n) {
   const dailyData = body.cases_time_series;
-  // const minN = Math.min(n, dailyData.length); undo this once link shortner is ready
-  const minN = Math.min(n, 150);
+  const minN = Math.min(n, dailyData.length);
   const confirmed = []; const active = []; const recovered = []; const
     deaths = [];
   const dateLabel = [];
@@ -362,7 +363,7 @@ function summaryGraph(body, n) {
     active.push(
       dailyData[i].dailyconfirmed - dailyData[i].dailydeceased - dailyData[i].dailyrecovered,
     );
-    dateLabel.push(`'${dailyData[i].date}'`);
+    dateLabel.push(`${dailyData[i].date}`);
   }
   confirmed.reverse();
   recovered.reverse();
@@ -370,13 +371,36 @@ function summaryGraph(body, n) {
   active.reverse();
   dateLabel.reverse();
 
-  let link = `https://quickchart.io/chart?c={type:'line',data:{labels:[${dateLabel}],`;
-  link += `datasets:[{label:'Confirmed',data:[${confirmed}],backgroundColor:'white', fill:false, borderColor:'red'},`;
-  link += `{label:'Active',data:[${active}],backgroundColor:'white', fill:false, borderColor:'blue'},`;
-  link += `{label:'Recovered',data:[${recovered}],backgroundColor:'white', fill:false, borderColor:'green'},`;
-  link += `{label:'Deceased',data:[${deaths}],backgroundColor:'white', fill:false, borderColor:'grey'}]},`;
-  link += `options: {title:{display: true,text: 'Daily cases analysis for past ${minN} days'},}}`;
-  return link;
+  const myChart = new QuickChart();
+  myChart
+    .setConfig({
+      type: 'line',
+      data: {
+        labels: dateLabel,
+        datasets: [{
+          label: 'Confirmed', data: confirmed, backgroundColor: 'white', fill: false, borderColor: 'red',
+        },
+        {
+          label: 'Active', data: active, backgroundColor: 'white', fill: false, borderColor: 'blue',
+        },
+        {
+          label: 'Recovered', data: recovered, backgroundColor: 'white', fill: false, borderColor: 'green',
+        },
+        {
+          label: 'Deceased', data: deaths, backgroundColor: 'white', fill: false, borderColor: 'grey',
+        }],
+      },
+      options: {
+        title: {
+          display: true,
+          text: `Daily cases analysis for past ${minN} days`,
+        },
+      },
+    }).setDevicePixelRatio(2);
+
+  const url = await myChart.getShortUrl();
+
+  return url;
 }
 
 module.exports = {

@@ -30,6 +30,7 @@
     "express": "^4.17.1",
     "node-telegram-bot-api": "^0.40.0",
     "nodemon": "^2.0.3",
+    "quickchart-js": "^1.0.2",
     "request": "^2.88.2",
     "universal-analytics": "^0.4.20"
   },
