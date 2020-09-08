@@ -1,7 +1,7 @@
 const prepareAnswer = require('../utils/prepareAnswer');
 
-function dailyRecGraph(body, bot, chatId, n = 10) {
-  const data = prepareAnswer.dailyRecStatsGraph(body, n);
+async function dailyRecGraph(body, bot, chatId, n = 10) {
+  const data = await prepareAnswer.dailyRecStatsGraph(body, n);
 
   return bot.sendPhoto(chatId, data);
 }
