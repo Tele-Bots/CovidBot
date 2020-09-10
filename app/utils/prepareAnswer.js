@@ -269,7 +269,7 @@ function prepareNewDistrictWiseState(body, stateName) {
   return data;
 }
 
-function dailyStatsGraph(body, n) {
+async function dailyStatsGraph(body, n) {
   const dailyData = body.cases_time_series;
   const minN = Math.min(n, dailyData.length);
   const data = [];
@@ -277,18 +277,36 @@ function dailyStatsGraph(body, n) {
   dailyData.reverse();
   for (let i = 0; i < minN; i += 1) {
     data.push(dailyData[i].dailyconfirmed);
-    dateLabel.push(`'${dailyData[i].date}'`);
+    dateLabel.push(`${dailyData[i].date}`);
   }
   data.reverse();
   dateLabel.reverse();
 
-  let link = `https://quickchart.io/chart?c={type:'line',data:{labels:[${dateLabel}],`;
-  link += `datasets:[{label:'Daily new cases',data:[${data}],backgroundColor:'white', fill:false, borderColor:'red'}]},`;
-  link += `options: {title:{display: true,text: 'Daily confirmed cases analysis for past ${minN} days'},}}`;
-  return link;
+  const myChart = new QuickChart();
+  myChart
+    .setConfig({
+      type: 'line',
+      data: {
+        labels: dateLabel,
+        datasets: [
+          {
+            label: 'Daily new cases', data, backgroundColor: 'white', fill: false, borderColor: 'red',
+          }],
+      },
+      options: {
+        title: {
+          display: true,
+          text: `Daily confirmed cases analysis for past ${minN} days`,
+        },
+      },
+    }).setDevicePixelRatio(2);
+
+  const url = await myChart.getShortUrl();
+
+  return url;
 }
 
-function dailyActiveStatsGraph(body, n) {
+async function dailyActiveStatsGraph(body, n) {
   const dailyData = body.cases_time_series;
   const minN = Math.min(n, dailyData.length);
   const data = [];
@@ -298,18 +316,36 @@ function dailyActiveStatsGraph(body, n) {
     data.push(
       dailyData[i].dailyconfirmed - dailyData[i].dailydeceased - dailyData[i].dailyrecovered,
     );
-    dateLabel.push(`'${dailyData[i].date}'`);
+    dateLabel.push(`${dailyData[i].date}`);
   }
   data.reverse();
   dateLabel.reverse();
 
-  let link = `https://quickchart.io/chart?c={type:'line',data:{labels:[${dateLabel}],`;
-  link += `datasets:[{label:'Daily new active cases',data:[${data}],backgroundColor:'white', fill:false, borderColor:'blue'}]},`;
-  link += `options: {title:{display: true,text: 'Daily active cases analysis for past ${minN} days'},}}`;
-  return link;
+  const myChart = new QuickChart();
+  myChart
+    .setConfig({
+      type: 'line',
+      data: {
+        labels: dateLabel,
+        datasets: [
+          {
+            label: 'Daily new active cases', data, backgroundColor: 'white', fill: false, borderColor: 'blue',
+          }],
+      },
+      options: {
+        title: {
+          display: true,
+          text: `Daily active cases analysis for past ${minN} days`,
+        },
+      },
+    }).setDevicePixelRatio(2);
+
+  const url = await myChart.getShortUrl();
+
+  return url;
 }
 
-function dailyRecStatsGraph(body, n) {
+async function dailyRecStatsGraph(body, n) {
   const dailyData = body.cases_time_series;
   const minN = Math.min(n, dailyData.length);
   const data = [];
@@ -317,19 +353,36 @@ function dailyRecStatsGraph(body, n) {
   dailyData.reverse();
   for (let i = 0; i < minN; i += 1) {
     data.push(dailyData[i].dailyrecovered);
-    dateLabel.push(`'${dailyData[i].date}'`);
+    dateLabel.push(`${dailyData[i].date}`);
   }
   data.reverse();
   dateLabel.reverse();
 
-  let link = `https://quickchart.io/chart?c={type:'line',data:{labels:[${dateLabel}],`;
-  link += `datasets:[{label:'Daily new recovered cases',data:[${data}],backgroundColor:'white', fill:false, borderColor:'green'}]},`;
-  link += `options: {title:{display: true,text: 'Daily recovered cases analysis for past ${minN} days'},}}`;
+  const myChart = new QuickChart();
+  myChart
+    .setConfig({
+      type: 'line',
+      data: {
+        labels: dateLabel,
+        datasets: [
+          {
+            label: 'Daily new recovered cases', data, backgroundColor: 'white', fill: false, borderColor: 'green',
+          }],
+      },
+      options: {
+        title: {
+          display: true,
+          text: `Daily recovered cases analysis for past ${minN} days`,
+        },
+      },
+    }).setDevicePixelRatio(2);
 
-  return link;
+  const url = await myChart.getShortUrl();
+
+  return url;
 }
 
-function dailyDecStatsGraph(body, n) {
+async function dailyDecStatsGraph(body, n) {
   const dailyData = body.cases_time_series;
   const minN = Math.min(n, dailyData.length);
   const data = [];
@@ -337,16 +390,33 @@ function dailyDecStatsGraph(body, n) {
   dailyData.reverse();
   for (let i = 0; i < minN; i += 1) {
     data.push(dailyData[i].dailydeceased);
-    dateLabel.push(`'${dailyData[i].date}'`);
+    dateLabel.push(`${dailyData[i].date}`);
   }
   data.reverse();
   dateLabel.reverse();
 
-  let link = `https://quickchart.io/chart?c={type:'line',data:{labels:[${dateLabel}],`;
-  link += `datasets:[{label:'Daily new deceased cases',data:[${data}],backgroundColor:'white', fill:false, borderColor:'grey'}]},`;
-  link += `options: {title:{display: true,text: 'Daily deceased cases analysis for past ${minN} days'},}}`;
+  const myChart = new QuickChart();
+  myChart
+    .setConfig({
+      type: 'line',
+      data: {
+        labels: dateLabel,
+        datasets: [
+          {
+            label: 'Daily new deceased cases', data, backgroundColor: 'white', fill: false, borderColor: 'grey',
+          }],
+      },
+      options: {
+        title: {
+          display: true,
+          text: `Daily deceased cases analysis for past ${minN} days`,
+        },
+      },
+    }).setDevicePixelRatio(2);
 
-  return link;
+  const url = await myChart.getShortUrl();
+
+  return url;
 }
 
 async function summaryGraph(body, n) {
