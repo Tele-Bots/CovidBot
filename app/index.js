@@ -16,6 +16,7 @@ const { dailyDeceased } = require('./commands/dailyDeceased');
 const { dailyRecGraph } = require('./commands/dailyRecoveredGraph');
 const { graph } = require('./commands/graph');
 const { dailyDecGraph } = require('./commands/dailyDeceasedGraph');
+const { myState, requestLocation } = require('./commands/myState');
 
 require('dotenv').config();
 
@@ -204,9 +205,34 @@ bot.on('message', (msg) => {
         return graph(body, bot, chatId, n);
       }
 
+      // `my state` command
+      // Returns: State wise stats of the
+      // state obtained from user location
+      if (userMessage === 'my state') {
+        return requestLocation(bot, chatId);
+      }
+
       // `statename` or `stateCode` command
       // Returns: State wise stats
       return stateName(body, userMessage, bot, chatId);
+    }
+    return true;
+  });
+});
+
+// Main function which recieves the user location and acts upon it
+bot.on('location', (msg) => {
+  const chatId = msg.chat.id;
+  request(url, options, (error, res, body) => {
+    if (error) {
+      return error;
+    }
+
+    if (!error && res.statusCode === 200) {
+      // `my state` command
+      // Returns: State wise stats of the
+      // state obtained from user location
+      return myState(msg, body, bot, chatId);
     }
     return true;
   });
