@@ -43,6 +43,7 @@ function stateName(body, userMessage, bot, chatId) {
           // send a message to the chat
           return bot.sendMessage(chatId, data, {
             parse_mode: 'HTML',
+            reply_markup: { remove_keyboard: true },
           });
         }
         return true;
