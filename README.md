@@ -3,6 +3,15 @@
 <h5 align="center">Feature-rich bot to get live Covid-19 stats.</h5>
 
 <p align="center"><img src="https://user-images.githubusercontent.com/30543444/81913483-a9655680-95ed-11ea-9b32-b89598fc9f88.png" align="center" width="400"></p>
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/43115551/94989555-5e93ad80-0593-11eb-8e01-80f89a43bf45.jpg" align="center" width="400" alt="CovidBot Screenshots">
+</p>
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/43115551/94989554-5d628080-0593-11eb-8264-b2ab58ada6ca.jpg" align="center" width="400" alt="CovidBot Screenshots">
+</p>
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/43115551/94989552-5b98bd00-0593-11eb-8365-ca4f56e0a837.jpg" align="center" width="400" alt="CovidBot Screenshots">
+</p>
   
 | Command             |                        Description                        |       Status       |       Example       |
 | ------------------- | :-------------------------------------------------------: | :----------------: | ------------------: |
