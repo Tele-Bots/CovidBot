@@ -4,14 +4,11 @@
 
 <p align="center"><img src="https://user-images.githubusercontent.com/30543444/81913483-a9655680-95ed-11ea-9b32-b89598fc9f88.png" align="center" width="400"></p>
 <p align="center">
-    <img src="https://user-images.githubusercontent.com/43115551/94989555-5e93ad80-0593-11eb-8e01-80f89a43bf45.jpg" align="center" width="400" alt="CovidBot Screenshots">
+    <img src="https://user-images.githubusercontent.com/43115551/95186823-073a4b00-07e8-11eb-8e45-f3fb81bd2fd2.jpg"  width="400" alt="CovidBot Screenshots">
+    <img src="https://user-images.githubusercontent.com/43115551/95186837-0b666880-07e8-11eb-9d60-8d9e885482ec.jpg"  width="400" alt="CovidBot Screenshots">
+    <img src="https://user-images.githubusercontent.com/43115551/95186833-099ca500-07e8-11eb-833d-26584495d778.jpg"  width="400" alt="CovidBot Screenshots">    
 </p>
-<p align="center">
-    <img src="https://user-images.githubusercontent.com/43115551/94989554-5d628080-0593-11eb-8264-b2ab58ada6ca.jpg" align="center" width="400" alt="CovidBot Screenshots">
-</p>
-<p align="center">
-    <img src="https://user-images.githubusercontent.com/43115551/94989552-5b98bd00-0593-11eb-8365-ca4f56e0a837.jpg" align="center" width="400" alt="CovidBot Screenshots">
-</p>
+
   
 | Command             |                        Description                        |       Status       |       Example       |
 | ------------------- | :-------------------------------------------------------: | :----------------: | ------------------: |
