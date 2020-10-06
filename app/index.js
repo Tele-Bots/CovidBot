@@ -28,7 +28,9 @@ const visitor = ua(trackingCode);
 const nowUrl = process.env.NOW_URL;
 
 const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN, {
-  polling: true,
+  webHook: {
+    port: 443,
+  },
 });
 
 bot.setWebHook(`${nowUrl}/bot${process.env.TELEGRAM_BOT_TOKEN}`);
