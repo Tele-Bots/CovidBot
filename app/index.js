@@ -25,7 +25,7 @@ const url = 'https://api.covid19india.org/data.json';
 const trackingCode = process.env.ANALYTICS_ID;
 const visitor = ua(trackingCode);
 
-const nowUrl = process.env.NOW_URL;
+const nowUrl = process.env.VERCEL_URL;
 
 const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN, {
   webHook: {
