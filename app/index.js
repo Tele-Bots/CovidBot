@@ -1,6 +1,7 @@
 const TelegramBot = require('node-telegram-bot-api');
 const request = require('request');
 const ua = require('universal-analytics');
+const express = require('express');
 const { start } = require('./commands/start');
 const { all } = require('./commands/all');
 const { daily } = require('./commands/daily');
@@ -19,6 +20,8 @@ const { dailyDecGraph } = require('./commands/dailyDeceasedGraph');
 const { myState, requestLocation } = require('./commands/myState');
 
 require('dotenv').config();
+
+const app = express();
 
 const options = { json: true };
 const url = 'https://api.covid19india.org/data.json';
@@ -236,4 +239,9 @@ bot.on('location', (msg) => {
     }
     return true;
   });
+});
+
+app.listen(process.env.PORT, () => {
+  // eslint-disable-next-line no-console
+  console.log('Server runnning');
 });
