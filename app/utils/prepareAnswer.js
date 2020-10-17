@@ -185,7 +185,7 @@ function prepareTestingResourceAnswer(stateResources) {
   for (let i = 0; i < stateResources.length; i += 1) {
     let tempData = `\n<b>${stateResources[i].nameoftheorganisation}, ${stateResources[i].city}\n`
       + `</b>Description: ${stateResources[i].descriptionandorserviceprovided}.\n`;
-    if (stateResources[i].phonenumber.length > 0) { tempData += `<i>Phone Number: ${stateResources[i].phonenumber}</i>\n`; }
+    if (stateResources[i].phonenumber.length > 0) { tempData += `<i>Phone Number: <a href="tel:+91${stateResources[i].phonenumber}">+91${stateResources[i].phonenumber}</a></i>\n`; }
     if (stateResources[i].contact.length > 0) { tempData += `<i>Website: ${stateResources[i].contact}</i>\n`; }
     data.push(tempData);
   }
