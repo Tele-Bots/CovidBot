@@ -23,14 +23,18 @@ require('dotenv').config();
 
 const app = express();
 
-const options = { json: true };
+const options = {
+  webHook: {
+    port: 8080,
+  },
+};
 const url = 'https://api.covid19india.org/data.json';
 const trackingCode = process.env.ANALYTICS_ID;
 const visitor = ua(trackingCode);
 
-const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN, {
-  polling: true,
-});
+const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN, options);
+
+bot.setWebHook(`${process.env.APP_URL}/bot${process.env.TELEGRAM_BOT_TOKEN}`);
 
 // Main function which recieves the message and acts upon it
 bot.on('message', (msg) => {
