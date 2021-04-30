@@ -129,7 +129,8 @@ function prepareDailyStatsAnswer(body, n) {
   dailyData.reverse();
   for (let i = 0; i < minN; i += 1) {
     let { date } = dailyData[i];
-    date = date.substring(0, date.length - 1);
+    // Get the first two words 1) Date 2) Month
+    date = date.split(/\s+/).slice(0, 2).join(' ');
     data += `\n<b>${date}</b>: ${numberWithIndianCommas(dailyData[i].dailyconfirmed)} new cases.`;
   }
   return data;
@@ -142,7 +143,8 @@ function prepareDailyActiveAnswer(body, n) {
   dailyData.reverse();
   for (let i = 0; i < minN; i += 1) {
     let { date } = dailyData[i];
-    date = date.substring(0, date.length - 1);
+    // Get the first two words 1) Date 2) Month
+    date = date.split(/\s+/).slice(0, 2).join(' ');
     data += `\n<b>${date}</b>: ${numberWithIndianCommas(dailyData[i].dailyconfirmed - dailyData[i].dailydeceased - dailyData[i].dailyrecovered)} new active cases.`;
   }
   return data;
@@ -155,7 +157,8 @@ function prepareDailyRecoveredAnswer(body, n) {
   dailyData.reverse();
   for (let i = 0; i < minN; i += 1) {
     let { date } = dailyData[i];
-    date = date.substring(0, date.length - 1);
+    // Get the first two words 1) Date 2) Month
+    date = date.split(/\s+/).slice(0, 2).join(' ');
     data += `\n<b>${date}</b>: ${numberWithIndianCommas(dailyData[i].dailyrecovered)} new recovery cases.`;
   }
   return data;
@@ -168,7 +171,8 @@ function prepareDailyDeceasedAnswer(body, n) {
   dailyData.reverse();
   for (let i = 0; i < minN; i += 1) {
     let { date } = dailyData[i];
-    date = date.substring(0, date.length - 1);
+    // Get the first two words 1) Date 2) Month
+    date = date.split(/\s+/).slice(0, 2).join(' ');
     data += `\n<b>${date}</b>: ${numberWithIndianCommas(dailyData[i].dailydeceased)} new deceased cases.`;
   }
   return data;
