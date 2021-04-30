@@ -129,7 +129,8 @@ function prepareDailyStatsAnswer(body, n) {
   dailyData.reverse();
   for (let i = 0; i < minN; i += 1) {
     let { date } = dailyData[i];
-    date = date.substring(0, date.length - 1);
+    // Get the first two words 1) Date 2) Month
+    date = date.split(/\s+/).slice(0, 2).join(' ');
     data += `\n<b>${date}</b>: ${numberWithIndianCommas(dailyData[i].dailyconfirmed)} new cases.`;
   }
   return data;
