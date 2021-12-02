@@ -1,3 +1,4 @@
+<b>Note:</b> Project has been archived and no more maintain read [here](https://github.com/Tele-Bots/CovidBot/issues/110).
 <p align="center"><img src="https://user-images.githubusercontent.com/30543444/141684707-8d885776-496b-4e45-8c7c-b3a628841201.png" align="center" width="175"></p>
 <h1 align="center">Covid19Bot</h1>
 <h5 align="center">Feature-rich bot to get live Covid-19 stats.</h5>
